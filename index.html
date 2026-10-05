@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rent + Reputation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0b0f0d;
+  --ink-soft: #3a4040;
+  --ink-muted: #7a8585;
+  --cream: #f5f3ee;
+  --green: #1a3a2a;
+  --green-mid: #2d5c42;
+  --green-light: #e4ede8;
+  --gold: #c4a84a;
+  --white: #ffffff;
+  --rule: #dde2db;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(245,243,238,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--green); }
+
+.nav-cta {
+  background: var(--green);
+  color: white !important;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 500 !important;
+  transition: background 0.2s !important;
+}
+
+.nav-cta:hover { background: var(--green-mid) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 140px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 40%, rgba(26,58,42,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(196,168,74,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--gold);
+}
+
+.hero-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(46px, 6.5vw, 82px);
+  line-height: 1.0;
+  color: var(--ink);
+  max-width: 820px;
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline em { font-style: italic; color: var(--green); }
+
+.hero-sub {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 540px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 44px;
+}
+
+.hero-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: var(--green);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(26,58,42,0.2);
+}
+
+.btn-secondary {
+  color: var(--green);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s;
+}
+
+.btn-secondary:hover { gap: 12px; }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+  flex-wrap: wrap;
+}
+
+.hero-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--ink-muted);
+  max-width: 150px;
+  line-height: 1.4;
+}
+
+/* SECTION BASE */
+.section { padding: 100px 48px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.1;
+  color: var(--ink);
+  max-width: 620px;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.section-body {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 560px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+/* PROBLEM */
+.problem-bg { background: var(--white); }
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.problem-cards { display: flex; flex-direction: column; gap: 16px; }
+
+.problem-card {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 24px;
+  border-left: 3px solid var(--rule);
+  transition: border-color 0.2s;
+}
+
+.problem-card:hover { border-color: var(--green); }
+
+.problem-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.problem-card p {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.problem-stat-block {
+  background: var(--green);
+  border-radius: 16px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.p-stat { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px; }
+.p-stat:first-child { border-top: none; padding-top: 0; }
+
+.p-stat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px;
+  color: white;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.p-stat-label { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+/* HOW IT WORKS */
+.how-bg { background: var(--cream); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 56px;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 36px; left: 10%; right: 10%;
+  height: 1px;
+  background: var(--rule);
+  z-index: 0;
+}
+
+.step {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 32px 24px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.step h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 10px; line-height: 1.3; }
+.step p { font-size: 13.5px; color: var(--ink-muted); line-height: 1.55; }
+
+/* FOR WHO — two audiences clearly split */
+.forwho-bg { background: var(--white); }
+
+.audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 56px; }
+
+.audience-card { border-radius: 16px; padding: 40px 36px; border: 1px solid var(--rule); }
+.audience-card.landlord { background: var(--green); border-color: transparent; }
+.audience-card.tenant { background: var(--cream); }
+
+.audience-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.audience-card.landlord h3 { color: white; }
+.audience-card.tenant h3 { color: var(--ink); }
+
+.audience-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.landlord .audience-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+.tenant .audience-tag { background: var(--rule); color: var(--ink-muted); }
+
+.audience-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+.audience-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.landlord .audience-list li { color: rgba(255,255,255,0.85); }
+.tenant .audience-list li { color: var(--ink-soft); }
+
+.audience-list li::before {
+  content: '→';
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.landlord .audience-list li::before { color: var(--gold); }
+.tenant .audience-list li::before { color: var(--green); }
+
+/* COMPETITOR POSITIONING */
+.position-bg { background: var(--cream); }
+
+.position-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.position-table thead tr { background: var(--ink); }
+.position-table thead th {
+  padding: 12px 16px;
+  color: white;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.position-table tbody tr:nth-child(odd) { background: var(--white); }
+.position-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.5); }
+.position-table tbody tr.us { background: var(--green-light); }
+
+.position-table td {
+  padding: 12px 16px;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+}
+
+.position-table tbody tr.us td { color: var(--green); font-weight: 500; }
+.position-table td:first-child { font-weight: 600; color: var(--ink); }
+.position-table tbody tr.us td:first-child { color: var(--green); }
+
+.tick { color: #2a7a4a; font-weight: 700; }
+.cross { color: #b84040; }
+
+/* USP BAND */
+.usp-band { background: var(--green); padding: 80px 48px; }
+
+.usp-band-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+.usp-band blockquote {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  color: white;
+  line-height: 1.35;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.usp-band p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+/* CTA */
+.cta-section { background: var(--cream); padding: 100px 48px; }
+
+.cta-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+.cta-inner .section-title { margin: 0 auto 16px; }
+.cta-inner p { font-size: 17px; color: var(--ink-soft); margin-bottom: 36px; font-weight: 300; }
+
+.cta-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+
+.cta-form input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1.5px solid var(--rule);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  background: white;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.cta-form input:focus { border-color: var(--green); }
+
+.cta-form button {
+  background: var(--green);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.cta-form button:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+.cta-note { font-size: 12px; color: var(--ink-muted); margin-top: 16px; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; }
+.footer-tagline { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+/* ANIMATIONS */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 120px 24px 60px; }
+  .hero-stats { flex-direction: column; gap: 24px; }
+  .section { padding: 64px 24px; }
+  .problem-grid, .audience-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .cta-form { flex-direction: column; }
+  footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Rent + Reputation</a>
+  <ul class="nav-links">
+    <li><a href="#problem">The problem</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#for-who">For landlords</a></li>
+    <li><a href="#waitlist" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Launching 2026 · UK rental market</p>
+  <h1 class="hero-headline">Know how your tenant <em>actually</em> pays — not just who they were on paper</h1>
+  <p class="hero-sub">Rent + Reputation gives landlords a verified, ongoing picture of tenant payment behaviour. Not a one-off credit check. Not a biased reference. The real thing.</p>
+  <div class="hero-actions">
+    <a href="#waitlist" class="btn-primary">Join the waitlist</a>
+    <a href="#how" class="btn-secondary">See how it works →</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">S.21</div>
+      <div class="hero-stat-label">Abolished May 2026. A bad tenant is now a year-long legal problem.</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">£9k+</div>
+      <div class="hero-stat-label">Average cost of a bad tenant in lost rent, legal fees, and time.</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">0</div>
+      <div class="hero-stat-label">Platforms tracking verified tenant behaviour across a full tenancy. Until now.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section problem-bg" id="problem">
+  <div class="section-inner">
+    <p class="section-label fade-up">The problem</p>
+    <h2 class="section-title fade-up">The data landlords get is broken</h2>
+    <p class="section-body fade-up">Credit scores, references, one-off checks — none of them tell you how a tenant behaves across a real tenancy. And since May 2026, getting that decision wrong costs you far more than it used to.</p>
+
+    <div class="problem-grid">
+      <div class="problem-cards fade-up">
+        <div class="problem-card">
+          <h4>Credit scores miss the point</h4>
+          <p>Most rent payments never appear on a credit file. A tenant who has paid on time for five years can still score 480 because of an old debt management plan. The score isn't measuring what you need it to measure.</p>
+        </div>
+        <div class="problem-card">
+          <h4>References are guesswork</h4>
+          <p>Most landlord references are glowing — because the previous landlord wants the tenant to leave. Unverified, biased, and almost never independent. They tell you almost nothing useful.</p>
+        </div>
+        <div class="problem-card">
+          <h4>One-off checks freeze at move-in</h4>
+          <p>Standard referencing tells you who someone was on the day they applied. It tells you nothing about how they behave across six months, a year, or three years of actual tenancy.</p>
+        </div>
+        <div class="problem-card">
+          <h4>The law just raised the stakes</h4>
+          <p>Section 21 is gone. You can no longer end a tenancy without legal grounds. Getting the wrong tenant in the first place is now a 11-month court process. Upfront data has never mattered more.</p>
+        </div>
+      </div>
+
+      <div class="problem-stat-block fade-up">
+        <div class="p-stat">
+          <div class="p-stat-num">11 months</div>
+          <div class="p-stat-label">Average time to remove a non-paying tenant through court under the new Renters' Rights Act</div>
+        </div>
+        <div class="p-stat">
+          <div class="p-stat-num">£9,000+</div>
+          <div class="p-stat-label">Estimated all-in cost of a bad tenant — missed rent, legal fees, repairs, lost time</div>
+        </div>
+        <div class="p-stat">
+          <div class="p-stat-num">4.6m</div>
+          <div class="p-stat-label">Privately rented UK households — all relying on the same broken screening system</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-bg" id="how">
+  <div class="section-inner">
+    <p class="section-label fade-up">How it works</p>
+    <h2 class="section-title fade-up">Ongoing visibility, not a snapshot</h2>
+    <p class="section-body fade-up">We track and verify rent payment behaviour across the whole tenancy — then turn it into a clear, reliable picture any landlord can act on.</p>
+
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <h4>Landlord registers their tenants</h4>
+        <p>A letting agent or landlord adds their properties and tenants. Simple setup, no technical knowledge required.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <h4>We track payments over time</h4>
+        <p>Via Open Banking or simple logging. On-time percentage, patterns, missed payments — all timestamped and independently verified.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <h4>A reliability score is generated</h4>
+        <p>A clear, honest profile of how a tenant actually pays — updated continuously across the tenancy, not frozen at move-in.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">4</div>
+        <h4>Tenants carry it with them</h4>
+        <p>Their rental record becomes portable — shareable with the next landlord as verified proof of reliability, building real credibility over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="section forwho-bg" id="for-who">
+  <div class="section-inner">
+    <p class="section-label fade-up">Who it's for</p>
+    <h2 class="section-title fade-up">Built for landlords. Valuable for tenants.</h2>
+    <p class="section-body fade-up">Landlords and letting agents are our primary customer — they sign up, they pay, they get the data they've been missing. Tenants get something too: a record that actually works in their favour.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card landlord fade-up">
+        <span class="audience-tag">Primary customer</span>
+        <h3>Landlords + letting agents</h3>
+        <ul class="audience-list" style="margin-top:20px">
+          <li>Verified payment history — not self-reported, not a guess</li>
+          <li>Ongoing visibility across the tenancy, not just at move-in</li>
+          <li>Screen new tenants with real behavioural data</li>
+          <li>Compliance-ready records if you ever need Section 8</li>
+          <li>Portfolio dashboard across all your properties</li>
+        </ul>
+      </div>
+      <div class="audience-card tenant fade-up">
+        <span class="audience-tag">Also benefits tenants</span>
+        <h3>Tenants</h3>
+        <ul class="audience-list" style="margin-top:20px">
+          <li>Your rent record finally counts for something</li>
+          <li>A portable profile you carry to your next property</li>
+          <li>Stand out against applicants with no rental history</li>
+          <li>Build toward credit recognition over time</li>
+          <li>Prove reliability without relying on a landlord's word</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="section position-bg" id="positioning">
+  <div class="section-inner">
+    <p class="section-label fade-up">Why us</p>
+    <h2 class="section-title fade-up">The gap nobody has filled</h2>
+    <p class="section-body fade-up">Every existing product serves one side and freezes at one moment. We're the only platform that's ongoing, verified, and built for the landlord's decision — not the tenant's credit file.</p>
+
+    <table class="position-table fade-up">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Who they serve</th>
+          <th>Ongoing?</th>
+          <th>Landlord-facing?</th>
+          <th>Verified?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CreditLadder</td>
+          <td>Tenants (CRA reporting)</td>
+          <td class="tick">✓</td>
+          <td class="cross">✗</td>
+          <td class="tick">✓</td>
+        </tr>
+        <tr>
+          <td>Canopy</td>
+          <td>Tenants (rental passport)</td>
+          <td class="tick">✓</td>
+          <td class="cross">✗</td>
+          <td class="tick">✓</td>
+        </tr>
+        <tr>
+          <td>Goodlord</td>
+          <td>Landlords (referencing)</td>
+          <td class="cross">✗</td>
+          <td class="tick">✓</td>
+          <td class="tick">✓</td>
+        </tr>
+        <tr>
+          <td>Experian</td>
+          <td>Lenders</td>
+          <td class="tick">✓</td>
+          <td class="cross">✗</td>
+          <td class="tick">✓</td>
+        </tr>
+        <tr class="us">
+          <td>Rent + Reputation</td>
+          <td>Landlords (primary) + tenants</td>
+          <td class="tick">✓</td>
+          <td class="tick">✓</td>
+          <td class="tick">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- USP BAND -->
+<div class="usp-band">
+  <div class="usp-band-inner">
+    <blockquote>"The only platform that gives landlords a verified, ongoing picture of how a tenant actually behaves — not just who they were on paper when they moved in."</blockquote>
+    <p>Every competitor freezes at move-in. We run through the whole tenancy. That's not a feature difference — that's a different category entirely.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <div class="cta-inner">
+    <p class="section-label">Early access</p>
+    <h2 class="section-title">Be first when we launch</h2>
+    <p>We're running our first pilots with letting agents and landlords in Q3 2026. Join the waitlist and we'll be in touch directly.</p>
+    <div class="cta-form">
+      <input type="email" placeholder="Your email address"/>
+      <button type="button" onclick="handleSignup()">Join waitlist</button>
+    </div>
+    <p class="cta-note" id="cta-note">No spam. No commitment. Just early access.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rent + Reputation</div>
+  <div class="footer-tagline">© 2026 · Built in the UK · Pre-launch · For landlords who want better data</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+function handleSignup() {
+  const input = document.querySelector('.cta-form input');
+  const note = document.getElementById('cta-note');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    note.textContent = "✓ You're on the list. We'll be in touch shortly.";
+    note.style.color = '#2d5c42';
+    note.style.fontWeight = '500';
+  } else {
+    input.style.borderColor = '#c44a4a';
+    input.placeholder = 'Please enter a valid email';
+    setTimeout(() => {
+      input.style.borderColor = '';
+      input.placeholder = 'Your email address';
+    }, 2000);
+  }
+}
+</script>
+</body>
+</html>
