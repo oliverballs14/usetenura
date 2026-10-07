@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Problem — Tenura</title>
+<meta name="description" content="Why credit scores, references, and one-off checks fail UK landlords — and why it matters more than ever since Section 21 was abolished."/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* PROBLEM PAGE SPECIFIC */
+.problem-intro {
+  background: var(--bg2);
+  padding: 80px 0 100px;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 100px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.intro-body {
+  font-size: 18px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.intro-body p + p { margin-top: 20px; }
+
+.intro-callout {
+  background: var(--green);
+  border-radius: 20px;
+  padding: 44px 40px;
+  position: sticky;
+  top: 100px;
+}
+
+.ic-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.ic-stat {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.ic-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.ic-stat:first-of-type { padding-top: 0; }
+
+.ic-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px;
+  color: white;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.ic-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+/* FOUR FAILURES */
+.failures {
+  background: var(--bg);
+  padding: 100px 0;
+}
+
+.failure-block {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.failure-block:first-of-type { border-top: 1px solid var(--rule); }
+
+.fb-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 52px;
+  color: var(--rule);
+  line-height: 1;
+  padding-top: 4px;
+}
+
+.fb-left h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.015em;
+}
+
+.fb-left p {
+  font-size: 16px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.fb-right {
+  padding-top: 6px;
+}
+
+.fb-insight {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 12px;
+}
+
+.fi-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.fi-text {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* S21 SECTION */
+.s21-section {
+  background: var(--ink);
+  padding: 100px 0;
+}
+
+.s21-inner { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+
+.s21-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+
+.s21-header .s-num { color: rgba(255,255,255,0.35); }
+.s21-header .s-num::after { background: rgba(255,255,255,0.1); }
+.s21-header .s-title { color: white; }
+
+.s21-body {
+  font-size: 17px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.s21-body p + p { margin-top: 16px; }
+
+.s21-timeline {
+  display: flex;
+  gap: 2px;
+}
+
+.tl-item {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 28px 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.2s;
+}
+
+.tl-item:hover { background: rgba(255,255,255,0.08); }
+
+.tl-date {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.tl-event {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.tl-detail {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.55;
+}
+
+/* WHAT WE DO DIFFERENTLY */
+.solution-preview {
+  background: var(--bg2);
+  padding: 100px 0;
+}
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 56px;
+}
+
+.sp-features { display: flex; flex-direction: column; gap: 28px; }
+
+.sp-feature {
+  display: flex;
+  gap: 20px;
+  align-items: start;
+}
+
+.sp-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--green-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.sp-feature-body h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.sp-feature-body p {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.sp-quote {
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 48px 44px;
+}
+
+.sp-quote blockquote {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--ink);
+  font-style: italic;
+  line-height: 1.35;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.sp-quote footer {
+  background: none;
+  padding: 0;
+  display: block;
+  font-size: 13px;
+  color: var(--ink-muted);
+  flex-direction: unset;
+}
+
+@media (max-width: 900px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 48px; }
+  .intro-callout { position: static; }
+  .failure-block { grid-template-columns: 1fr; gap: 16px; }
+  .fb-num { font-size: 36px; }
+  .s21-header { grid-template-columns: 1fr; gap: 32px; }
+  .s21-timeline { flex-direction: column; }
+  .s21-inner { padding: 0 24px; }
+  .sp-grid { grid-template-columns: 1fr; gap: 48px; }
+  .failures { padding: 60px 0; }
+  .failure-block { padding: 40px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Tenura</a>
+  <ul class="nav-links">
+    <li><a href="problem.html" class="active">The problem</a></li>
+    <li><a href="how-it-works.html">How it works</a></li>
+    <li><a href="for-landlords.html">For landlords</a></li>
+    <li><a href="index.html#waitlist" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>The problem</span>
+    </div>
+    <h1>The data landlords<br>rely on is <em>broken</em></h1>
+    <p class="page-hero-sub">Credit scores, references, and one-off checks were never designed to answer the question you actually need answered: how does this person behave across a real tenancy?</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="problem-intro full">
+  <div class="inner">
+    <div class="intro-grid">
+      <div class="fi">
+        <p class="s-num">The gap</p>
+        <h2 class="s-title">Every tool freezes<br>at move-in</h2>
+        <div class="intro-body">
+          <p>The UK landlord toolset was built for a simpler world. Credit checks, landlord references, and tenant passports all tell you who someone was at the moment they applied. None of them tell you what happens next.</p>
+          <p>The best predictor of how a tenant will behave in your property is how they've behaved in every property before it — not who they presented as on a Saturday afternoon viewing.</p>
+          <p>That data has always existed. It just hasn't been collected, verified, or made accessible. Until now, every landlord has been making a £50,000+ decision with a CV and a credit score.</p>
+          <p>Section 21 changed everything. The no-fault eviction route is gone. The cost of a wrong decision has never been higher — and the tools landlords are using haven't changed at all.</p>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="intro-callout">
+          <p class="ic-label">The cost of getting it wrong</p>
+          <div class="ic-stat">
+            <div class="ic-num">11 months</div>
+            <div class="ic-desc">Average time to remove a non-paying tenant through court under the Renters' Rights Act 2024</div>
+          </div>
+          <div class="ic-stat">
+            <div class="ic-num">£9,200</div>
+            <div class="ic-desc">Estimated all-in cost of a problem tenancy — missed rent, legal fees, court costs, repairs and void periods</div>
+          </div>
+          <div class="ic-stat">
+            <div class="ic-num">4.6m</div>
+            <div class="ic-desc">Privately rented UK households — all relying on the same screening methods that have existed since the 1990s</div>
+          </div>
+          <div class="ic-stat">
+            <div class="ic-num">£0</div>
+            <div class="ic-desc">Amount of ongoing rent payment data typically captured in a standard credit report for UK renters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR FAILURES -->
+<section class="failures full">
+  <div class="inner">
+    <p class="s-num fi">Four failure modes</p>
+    <h2 class="s-title fi">Why the existing tools<br>don't work</h2>
+
+    <div class="failure-block fi">
+      <div class="fb-num">01</div>
+      <div class="fb-left">
+        <h3>Credit scores miss the point entirely</h3>
+        <p>A credit score was designed to predict whether someone will repay a loan — not whether they'll pay rent on time. Most rent payments never appear on a credit file at all. A tenant with five years of perfect rent payments and no other debt can still score 480 because of a missed mobile phone bill from 2019.</p>
+        <p style="margin-top:16px; font-size:16px; color:var(--ink-muted); font-weight:300; line-height:1.7;">The score isn't measuring the wrong thing poorly — it's measuring a completely different thing altogether. A high credit score tells you someone is good at managing debt products. It tells you almost nothing about whether they'll pay their rent on the 1st of every month for the next two years.</p>
+      </div>
+      <div class="fb-right">
+        <div class="fb-insight">
+          <div class="fi-label">The gap</div>
+          <div class="fi-text">Only 3 of the UK's 4.6 million private renters have their rent payments reported to credit agencies — usually only when they actively opt in via a third-party service. The other 4.597 million are invisible.</div>
+        </div>
+        <div class="fb-insight">
+          <div class="fi-label">What this means for you</div>
+          <div class="fi-text">A tenant can have paid every landlord they've ever had on time, every month, for a decade — and a standard credit check will give you no indication of this whatsoever.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="failure-block fi">
+      <div class="fb-num">02</div>
+      <div class="fb-left">
+        <h3>References are biased by design</h3>
+        <p>The mechanics of tenant references create a structural bias toward positive feedback. The previous landlord wants the tenant to leave — and if they give a bad reference, they may face a dispute, legal exposure, or an angry tenant who simply refuses to vacate.</p>
+        <p style="margin-top:16px; font-size:16px; color:var(--ink-muted); font-weight:300; line-height:1.7;">So most landlord references say nothing meaningful. They confirm dates of tenancy, describe the tenant as "reliable" and "clean," and hope the incoming landlord doesn't read between the lines. By the time a reference is being checked, the previous landlord wants it to succeed.</p>
+      </div>
+      <div class="fb-right">
+        <div class="fb-insight">
+          <div class="fi-label">The bias problem</div>
+          <div class="fi-text">A landlord who gives an honest negative reference risks a complaint or legal challenge. Most choose the path of least resistance: say nothing useful and let the problem move somewhere else.</div>
+        </div>
+        <div class="fb-insight">
+          <div class="fi-label">What this means for you</div>
+          <div class="fi-text">References are almost never independent, always unverified, and written by someone whose incentives are misaligned with yours. You're making a trust decision based on a letter written by someone who benefits from you saying yes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="failure-block fi">
+      <div class="fb-num">03</div>
+      <div class="fb-left">
+        <h3>One-off checks freeze in time</h3>
+        <p>Even the best tenant referencing products — Goodlord, Canopy, Homeppl — all share a structural problem: they check someone at one moment in time and then stop. The report you get on the day of move-in is the only report you'll ever get.</p>
+        <p style="margin-top:16px; font-size:16px; color:var(--ink-muted); font-weight:300; line-height:1.7;">But the behaviour that matters — whether rent arrives on the 1st, whether issues get reported, whether the property is respected — unfolds over months and years. Nothing in a move-in check tells you how someone behaves in month seven when their circumstances change.</p>
+      </div>
+      <div class="fb-right">
+        <div class="fb-insight">
+          <div class="fi-label">The snapshot problem</div>
+          <div class="fi-text">Someone can pass every check on the day they move in and become your most difficult tenant six months later when their job situation changes. The check captured a moment, not a pattern.</div>
+        </div>
+        <div class="fb-insight">
+          <div class="fi-label">What this means for you</div>
+          <div class="fi-text">You're making a multi-year commitment based on a point-in-time snapshot. No bank would lend that way. No insurer would underwrite that way. But landlords have had no alternative.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="failure-block fi">
+      <div class="fb-num">04</div>
+      <div class="fb-left">
+        <h3>Section 21 just raised the stakes</h3>
+        <p>Before May 2026, a landlord could end a tenancy without giving any reason — Section 21 was the safety net. If a tenant turned out to be a problem, you could issue a no-fault notice and reclaim the property in two months.</p>
+        <p style="margin-top:16px; font-size:16px; color:var(--ink-muted); font-weight:300; line-height:1.7;">That safety net no longer exists. Under the Renters' Rights Act 2024, every eviction now requires grounds. Court proceedings for non-payment of rent are estimated to take 11 months on average — during which a non-paying tenant remains in your property and you continue to owe a mortgage.</p>
+      </div>
+      <div class="fb-right">
+        <div class="fb-insight">
+          <div class="fi-label">What changed in 2026</div>
+          <div class="fi-text">Section 21 'no-fault' evictions were abolished under the Renters' Rights Act 2024. Landlords must now demonstrate legal grounds for every possession — a process that takes an average of 11 months in court.</div>
+        </div>
+        <div class="fb-insight">
+          <div class="fi-label">The new maths</div>
+          <div class="fi-text">11 months of missed rent at £1,200/month = £13,200 in lost income, plus an estimated £3,000–£6,000 in legal costs. Better screening isn't a nice-to-have any more. It's financial self-defence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S21 CONTEXT -->
+<section class="s21-section full">
+  <div class="s21-inner">
+    <div class="s21-header fi">
+      <div>
+        <p class="s-num">Legislative context</p>
+        <h2 class="s-title">How the law changed<br>the equation</h2>
+      </div>
+      <div>
+        <div class="s21-body">
+          <p>The Renters' Rights Act 2024 was the most significant shift in UK landlord law in a generation. The removal of Section 21 wasn't just a policy change — it fundamentally altered the risk profile of every tenancy agreement in England.</p>
+          <p>For the first time, the quality of your tenant screening has a direct and measurable impact on your exposure. The tools available haven't kept pace with the risk.</p>
+        </div>
+      </div>
+    </div>
+    <div class="s21-timeline fi">
+      <div class="tl-item">
+        <div class="tl-date">2019</div>
+        <div class="tl-event">Government announces end of Section 21</div>
+        <div class="tl-detail">The Conservative government commits to abolishing no-fault evictions. Industry concern begins.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2022</div>
+        <div class="tl-event">Renters Reform Bill introduced</div>
+        <div class="tl-detail">First draft of legislation laid before Parliament. Multiple delays follow over the next two years.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024</div>
+        <div class="tl-event">Renters' Rights Act passes</div>
+        <div class="tl-detail">The Act receives Royal Assent under the Labour government. Implementation date set for May 2026.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">May 2026</div>
+        <div class="tl-event">Section 21 abolished</div>
+        <div class="tl-detail">No-fault evictions officially ended. All tenancies now require legal grounds for possession. Tenura begins building.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Now</div>
+        <div class="tl-event">A £50k decision with 1990s tools</div>
+        <div class="tl-detail">4.6 million rented households. Every new tenancy a higher-stakes commitment than ever before. No better data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION PREVIEW -->
+<section class="solution-preview full">
+  <div class="inner">
+    <p class="s-num fi">What Tenura does differently</p>
+    <h2 class="s-title fi">Ongoing verification,<br>not a point-in-time guess</h2>
+    <div class="sp-grid">
+      <div class="sp-features fi">
+        <div class="sp-feature">
+          <div class="sp-icon">✓</div>
+          <div class="sp-feature-body">
+            <h4>Verified across the whole tenancy</h4>
+            <p>We track payment behaviour from move-in to move-out — not just the moment someone applied. That's the data that actually predicts the future.</p>
+          </div>
+        </div>
+        <div class="sp-feature">
+          <div class="sp-icon">↑</div>
+          <div class="sp-feature-body">
+            <h4>Landlord-facing by design</h4>
+            <p>Every other platform was built for tenants or credit agencies. We're built for landlords — the people who need this data to make real decisions.</p>
+          </div>
+        </div>
+        <div class="sp-feature">
+          <div class="sp-icon">⚡</div>
+          <div class="sp-feature-body">
+            <h4>Open Banking verification</h4>
+            <p>Payments are verified directly — not self-reported, not inferred. If rent was paid on the 1st, we know because the bank said so.</p>
+          </div>
+        </div>
+        <div class="sp-feature">
+          <div class="sp-icon">→</div>
+          <div class="sp-feature-body">
+            <h4>Portable tenant profiles</h4>
+            <p>A tenant who builds a strong record carries it to their next property. Better data becomes an incentive on both sides.</p>
+          </div>
+        </div>
+        <div style="margin-top: 12px;">
+          <a href="how-it-works.html" class="btn btn-primary">See how it works →</a>
+        </div>
+      </div>
+      <div class="sp-quote fi">
+        <blockquote>"The only platform that gives landlords a verified, ongoing picture of how a tenant actually behaves — not just who they were on paper when they moved in."</blockquote>
+        <footer>
+          Every competitor freezes at move-in. We run through the whole tenancy. That's not a feature difference — it's a different category entirely.
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <p class="s-num" style="justify-content:center; margin-bottom:12px;">Early access</p>
+    <h2 class="s-title fi" style="margin: 0 auto 16px;">Be first when<br>we launch</h2>
+    <p class="fi">We're running our first pilots with letting agents and landlords in Q3 2026. Join the waitlist and we'll be in touch directly.</p>
+    <div class="cta-row fi">
+      <input type="email" placeholder="Your email address"/>
+      <button type="button" onclick="handleSignup()">Join waitlist</button>
+    </div>
+    <p class="cta-note" id="cta-note">No spam. No commitment. Just early access.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Tenura</div>
+  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · For landlords who want better data</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+function handleSignup() {
+  const input = document.querySelector('.cta-row input');
+  const note = document.getElementById('cta-note');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
+    note.style.color = '#2d5c42';
+    note.style.fontWeight = '500';
+  } else {
+    input.style.borderColor = '#c44a4a';
+    input.placeholder = 'Please enter a valid email';
+    setTimeout(() => { input.style.borderColor = ''; input.placeholder = 'Your email address'; }, 2000);
+  }
+}
+</script>
+</body>
+</html>

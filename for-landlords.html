@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Landlords — Tenura</title>
+<meta name="description" content="Tenura for landlords and letting agents — verified rent payment behaviour, ongoing visibility, portfolio dashboards, and Section 8 compliance records."/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+/* FOR LANDLORDS PAGE SPECIFIC */
+
+/* OPENER */
+.landlord-opener {
+  background: var(--bg2);
+  padding: 80px 0 100px;
+}
+
+.opener-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 100px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.opener-body {
+  font-size: 17px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.opener-body p + p { margin-top: 18px; }
+
+.opener-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ov-card {
+  background: var(--bg);
+  border-radius: 14px;
+  padding: 24px 28px;
+  border: 1px solid var(--rule);
+}
+
+.ov-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 10px;
+}
+
+.ov-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.ov-sub {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.ov-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-soft);
+}
+
+.ov-row:last-child { border-bottom: none; }
+.ov-row span:last-child { font-weight: 600; color: var(--ink); }
+
+/* FEATURES GRID */
+.features {
+  background: var(--bg);
+  padding: 100px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.feat-cell {
+  background: var(--bg);
+  padding: 44px 40px;
+  transition: background 0.2s;
+}
+
+.feat-cell:hover { background: var(--bg2); }
+
+.feat-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  color: var(--rule);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.feat-cell h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.feat-cell p {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+}
+
+/* LETTING AGENTS */
+.agents {
+  background: var(--green);
+  padding: 100px 0;
+}
+
+.agents-inner { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+
+.agents-header { margin-bottom: 64px; }
+
+.agents-header .s-num { color: rgba(255,255,255,0.35); }
+.agents-header .s-num::after { background: rgba(255,255,255,0.1); }
+.agents-header .s-title { color: white; }
+
+.agents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.ag-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 32px 28px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.ag-icon {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.ag-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.ag-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+/* SECTION 8 */
+.s8-section {
+  background: var(--bg2);
+  padding: 100px 0;
+}
+
+.s8-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.s8-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.s8-step {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.s8-step:first-child { border-top: 1px solid var(--rule); }
+
+.s8-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.s8-step-body h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.s8-step-body p {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+.s8-callout {
+  background: var(--bg);
+  border-radius: 20px;
+  padding: 44px 40px;
+  position: sticky;
+  top: 100px;
+}
+
+.s8-callout h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.s8-callout p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.s8-detail {
+  background: white;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 16px;
+  border: 1px solid var(--rule);
+}
+
+.s8-detail-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.s8-detail-text {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* PRICING */
+.pricing {
+  background: var(--bg);
+  padding: 100px 0;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.pricing-card {
+  background: var(--bg2);
+  border-radius: 20px;
+  padding: 40px 36px;
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card.featured {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.pc-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.pricing-card:not(.featured) .pc-tag {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.pricing-card.featured .pc-tag {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+}
+
+.pc-name {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.pricing-card:not(.featured) .pc-name { color: var(--ink); }
+.pricing-card.featured .pc-name { color: white; }
+
+.pc-price {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px;
+  line-height: 1;
+  margin: 16px 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.pricing-card:not(.featured) .pc-price { color: var(--ink); }
+.pricing-card.featured .pc-price { color: white; }
+
+.pc-period {
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.pricing-card:not(.featured) .pc-period { color: var(--ink-muted); }
+.pricing-card.featured .pc-period { color: rgba(255,255,255,0.5); }
+
+.pc-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+.pc-features li {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pricing-card:not(.featured) .pc-features li { color: var(--ink-soft); }
+.pricing-card.featured .pc-features li { color: rgba(255,255,255,0.75); }
+
+.pc-check {
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-card:not(.featured) .pc-check { color: var(--green); }
+.pricing-card.featured .pc-check { color: rgba(255,255,255,0.7); }
+
+.pc-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+  text-align: center;
+}
+
+.pricing-card:not(.featured) .pc-cta {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.pricing-card:not(.featured) .pc-cta:hover { background: var(--green); color: white; }
+
+.pricing-card.featured .pc-cta {
+  background: white;
+  color: var(--green);
+}
+
+.pricing-card.featured .pc-cta:hover { background: rgba(255,255,255,0.9); }
+
+.pricing-note {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 900px) {
+  .opener-grid { grid-template-columns: 1fr; gap: 48px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .agents-grid { grid-template-columns: 1fr; }
+  .agents-inner { padding: 0 24px; }
+  .s8-grid { grid-template-columns: 1fr; gap: 48px; }
+  .s8-callout { position: static; }
+  .pricing-cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Tenura</a>
+  <ul class="nav-links">
+    <li><a href="problem.html">The problem</a></li>
+    <li><a href="how-it-works.html">How it works</a></li>
+    <li><a href="for-landlords.html" class="active">For landlords</a></li>
+    <li><a href="index.html#waitlist" class="nav-cta">Join waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>For landlords</span>
+    </div>
+    <h1>Built for landlords.<br>Finally <em>designed</em><br>for your decision.</h1>
+    <p class="page-hero-sub">Every other platform was built for tenants, credit agencies, or letting software companies. Tenura is the first platform designed around the question you actually need answered: is this tenant someone I can trust?</p>
+  </div>
+</section>
+
+<!-- OPENER -->
+<section class="landlord-opener full">
+  <div class="inner">
+    <div class="opener-grid">
+      <div class="fi">
+        <p class="s-num">The landlord's position</p>
+        <h2 class="s-title">You're making a £50,000<br>decision with a CV</h2>
+        <div class="opener-body">
+          <p>A standard tenancy is a two-year commitment at £1,200 a month. That's £28,800 — before you factor in potential repair costs, void periods, and the very real chance you'll need legal action to reclaim your property if something goes wrong.</p>
+          <p>The information you're making that decision on: a credit score that doesn't measure rent, a reference written by someone who wants the tenant to leave, and a passport photo. That's the toolkit that's been available to UK landlords for 30 years.</p>
+          <p>Since May 2026, the stakes are materially higher. Section 21 is gone. If you let to the wrong person and they stop paying, you're looking at an 11-month court process, an estimated £9,000+ in losses, and a property you can't access or re-let. The asymmetry between the risk and the data available to assess it has never been greater.</p>
+          <p>Tenura exists to close that gap.</p>
+        </div>
+      </div>
+      <div class="fi opener-visual">
+        <div class="ov-card">
+          <div class="ov-label">Portfolio overview</div>
+          <div style="display:flex; gap: 24px; margin-bottom: 16px;">
+            <div>
+              <div class="ov-value">12</div>
+              <div class="ov-sub">Properties tracked</div>
+            </div>
+            <div>
+              <div class="ov-value">98%</div>
+              <div class="ov-sub">Payments on time</div>
+            </div>
+          </div>
+          <div class="ov-row"><span>2A Maple Street, Manchester</span><span class="dp-val" style="color:#7bc99b;">✓ Current</span></div>
+          <div class="ov-row"><span>14B Park Road, Leeds</span><span class="dp-val" style="color:#7bc99b;">✓ Current</span></div>
+          <div class="ov-row"><span>7 Church Lane, Sheffield</span><span class="dp-val" style="color:#f0c060;">⚠ 4 days late</span></div>
+          <div class="ov-row"><span>31 High Street, York</span><span class="dp-val" style="color:#7bc99b;">✓ Current</span></div>
+        </div>
+        <div class="ov-card">
+          <div class="ov-label">New applicant — Tenura score</div>
+          <div class="ov-value" style="color: var(--green);">89</div>
+          <div class="ov-sub" style="margin-bottom: 14px;">Reliability score across 2 verified tenancies · 24 months</div>
+          <div class="ov-row"><span>On-time rate</span><span>89%</span></div>
+          <div class="ov-row"><span>Missed payments</span><span style="color:#7bc99b;">0</span></div>
+          <div class="ov-row"><span>Verification</span><span style="color:#7bc99b;">Open Banking ✓</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features full">
+  <div class="inner">
+    <p class="s-num fi">What you get</p>
+    <h2 class="s-title fi">Everything a landlord<br>actually needs</h2>
+    <div class="features-grid fi">
+      <div class="feat-cell">
+        <div class="feat-num">01</div>
+        <h4>Verified tenant profiles for screening</h4>
+        <p>When assessing a new applicant, request their Tenura profile. See their verified on-time payment rate, missed payment history, number of tracked tenancies, and trend — all verified independently against bank data. Not a reference letter. Not a credit score. The real thing.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-num">02</div>
+        <h4>Ongoing payment monitoring</h4>
+        <p>Once a tenancy is registered, Tenura monitors rent payments in real time. You'll know immediately if a payment is late or missed — not when it's already become a problem. Early visibility means early action, before the situation escalates to a formal notice.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-num">03</div>
+        <h4>Portfolio dashboard</h4>
+        <p>See all your properties in one place — payment status, upcoming renewals, reliability scores by tenant, any flagged activity. Whether you have two properties or twenty, a single dashboard gives you the oversight you've never had before.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-num">04</div>
+        <h4>Section 8 compliance records</h4>
+        <p>If a tenancy goes wrong and you need to pursue possession through Section 8, a documented, timestamped payment record is essential evidence. Tenura generates this automatically — every payment, every delay, every missed date, all independently verified and ready to present.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-num">05</div>
+        <h4>Renewal intelligence</h4>
+        <p>At renewal time, see the full picture of how a tenancy has gone — not just how it started. A tenant who paid perfectly for 18 months and then became progressively unreliable is a risk you can see, act on, and make an informed decision about.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-num">06</div>
+        <h4>Trend data over time</h4>
+        <p>Averages hide patterns. A tenant with 90% on-time payments who has been 100% reliable for two years and then missed three in a row tells a very different story than one who has always hovered around 90%. We show you both — the number and the shape behind it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LETTING AGENTS -->
+<section class="agents full">
+  <div class="agents-inner">
+    <div class="agents-header fi">
+      <p class="s-num">Letting agents</p>
+      <h2 class="s-title">Built for portfolios,<br>not just single properties</h2>
+    </div>
+    <div class="agents-grid fi">
+      <div class="ag-card">
+        <div class="ag-icon">🏢</div>
+        <h4>Single dashboard for your whole book</h4>
+        <p>Manage every landlord client and every tenant from one place. No switching between accounts, no manual reporting — one view of everything that matters.</p>
+      </div>
+      <div class="ag-card">
+        <div class="ag-icon">⚡</div>
+        <h4>Faster applicant screening</h4>
+        <p>Request a Tenura profile at offer stage. Get a verified payment history in minutes instead of chasing references that tell you nothing. Better data, faster decisions, fewer mistakes.</p>
+      </div>
+      <div class="ag-card">
+        <div class="ag-icon">📊</div>
+        <h4>Reporting for landlord clients</h4>
+        <p>Generate portfolio performance reports for your landlord clients — on-time rates, upcoming renewals, flagged tenants. A differentiator that no other agency can offer.</p>
+      </div>
+      <div class="ag-card">
+        <div class="ag-icon">🔔</div>
+        <h4>Early warning on arrears</h4>
+        <p>Get notified immediately when a payment is missed — not at the end of the month, not when the landlord calls. Early action is always cheaper than late action.</p>
+      </div>
+      <div class="ag-card">
+        <div class="ag-icon">📁</div>
+        <h4>Section 8 record generation</h4>
+        <p>If a tenancy goes to possession, your payment records are already verified, timestamped, and formatted for legal proceedings. Preparation you didn't have to think about.</p>
+      </div>
+      <div class="ag-card">
+        <div class="ag-icon">🤝</div>
+        <h4>Early access pricing</h4>
+        <p>Letting agents who join the pilot will be first to access the product and will work directly with us to shape the agent-facing features. Your input will be in the product.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 -->
+<section class="s8-section full">
+  <div class="inner">
+    <p class="s-num fi">Compliance & legal</p>
+    <h2 class="s-title fi">If something goes wrong,<br>you'll be ready</h2>
+    <div class="s8-grid">
+      <div class="fi">
+        <p style="font-size: 17px; color: var(--ink-soft); font-weight: 300; line-height: 1.7; margin-bottom: 32px;">We hope you'll never need this. But if you do, having a documented, verified record of payment behaviour is the difference between a straightforward Section 8 case and a contested one.</p>
+        <div class="s8-timeline">
+          <div class="s8-step">
+            <div class="s8-dot"></div>
+            <div class="s8-step-body">
+              <h4>From day one, every payment is recorded</h4>
+              <p>The moment a tenancy is registered, Tenura begins logging payments — with date, amount, and verification source. Automatically, with no admin from you.</p>
+            </div>
+          </div>
+          <div class="s8-step">
+            <div class="s8-dot"></div>
+            <div class="s8-step-body">
+              <h4>Late and missed payments are flagged immediately</h4>
+              <p>You receive a notification when rent is overdue. The record is updated with the actual payment date (or flagged as missed) — creating the documentary trail a Section 8 notice requires.</p>
+            </div>
+          </div>
+          <div class="s8-step">
+            <div class="s8-dot"></div>
+            <div class="s8-step-body">
+              <h4>A formal record is available on request</h4>
+              <p>When you need to serve a Section 8 notice on grounds of rent arrears, Tenura generates a formatted payment history — timestamped, verified, and ready to present as evidence.</p>
+            </div>
+          </div>
+          <div class="s8-step">
+            <div class="s8-dot"></div>
+            <div class="s8-step-body">
+              <h4>Your record can't be disputed</h4>
+              <p>Because payment records are verified against Open Banking data, neither party can claim payments were made that weren't. The record is the record — independently verified.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="s8-callout">
+          <h3>The Section 8 grounds<br>Tenura helps you evidence</h3>
+          <p>Under the Renters' Rights Act 2024, Ground 8 (mandatory) requires at least 2 months of rent arrears at the time of service and at the hearing. A Tenura record is direct evidence.</p>
+          <div class="s8-detail">
+            <div class="s8-detail-label">Ground 8 — mandatory</div>
+            <div class="s8-detail-text">At least 2 months' rent unpaid at notice and at hearing. Tenura gives you a court-ready payment record from day one of the tenancy.</div>
+          </div>
+          <div class="s8-detail">
+            <div class="s8-detail-label">Ground 10 — discretionary</div>
+            <div class="s8-detail-text">Some rent lawfully due is unpaid. A documented pattern of late payments strengthens this ground and establishes a pattern the court can assess.</div>
+          </div>
+          <div class="s8-detail">
+            <div class="s8-detail-label">Ground 11 — discretionary</div>
+            <div class="s8-detail-text">Persistent rent delay even if not currently in arrears. Tenura's trend data is exactly the evidence this ground requires.</div>
+          </div>
+          <p style="margin-top: 20px; font-size: 13px; color: var(--ink-muted);">Note: this is general information, not legal advice. Always consult a qualified housing solicitor for possession proceedings.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing full">
+  <div class="inner">
+    <p class="s-num fi">Pricing</p>
+    <h2 class="s-title fi">Simple pricing,<br>no surprises</h2>
+    <p class="s-body fi">We're pre-launch and pricing is indicative — early access members will work with us to confirm final pricing before we go live.</p>
+    <div class="pricing-cards fi">
+      <div class="pricing-card">
+        <span class="pc-tag">Individual</span>
+        <div class="pc-name">Landlord</div>
+        <div class="pc-price">£9</div>
+        <div class="pc-period">per property / month</div>
+        <ul class="pc-features">
+          <li><span class="pc-check">✓</span> Up to 3 properties</li>
+          <li><span class="pc-check">✓</span> Ongoing payment monitoring</li>
+          <li><span class="pc-check">✓</span> Verified tenant profiles</li>
+          <li><span class="pc-check">✓</span> Email alerts on missed payments</li>
+          <li><span class="pc-check">✓</span> Section 8 record generation</li>
+          <li><span class="pc-check">✓</span> Renewal summaries</li>
+        </ul>
+        <a href="index.html#waitlist" class="pc-cta">Join the waitlist</a>
+      </div>
+      <div class="pricing-card featured">
+        <span class="pc-tag">Most popular</span>
+        <div class="pc-name">Portfolio</div>
+        <div class="pc-price">£6</div>
+        <div class="pc-period">per property / month · 4–20 properties</div>
+        <ul class="pc-features">
+          <li><span class="pc-check">✓</span> Everything in Landlord</li>
+          <li><span class="pc-check">✓</span> Portfolio dashboard</li>
+          <li><span class="pc-check">✓</span> Tenant trend analytics</li>
+          <li><span class="pc-check">✓</span> Portfolio performance reports</li>
+          <li><span class="pc-check">✓</span> Priority support</li>
+          <li><span class="pc-check">✓</span> API access (beta)</li>
+        </ul>
+        <a href="index.html#waitlist" class="pc-cta">Join the waitlist</a>
+      </div>
+      <div class="pricing-card">
+        <span class="pc-tag">Letting agents</span>
+        <div class="pc-name">Agency</div>
+        <div class="pc-price">Custom</div>
+        <div class="pc-period">volume pricing · 20+ properties</div>
+        <ul class="pc-features">
+          <li><span class="pc-check">✓</span> Everything in Portfolio</li>
+          <li><span class="pc-check">✓</span> Multi-landlord client management</li>
+          <li><span class="pc-check">✓</span> White-label reporting</li>
+          <li><span class="pc-check">✓</span> Dedicated account manager</li>
+          <li><span class="pc-check">✓</span> CRM/PMS integration (roadmap)</li>
+          <li><span class="pc-check">✓</span> Pilot pricing locked in</li>
+        </ul>
+        <a href="index.html#waitlist" class="pc-cta">Talk to us</a>
+      </div>
+    </div>
+    <p class="pricing-note">Pricing is indicative and pre-launch. Early waitlist members set final pricing with us. No credit card required to join.</p>
+  </div>
+</section>
+
+<!-- QUOTE BAND -->
+<div class="quote-band">
+  <blockquote>"The only platform that gives landlords a verified, ongoing picture of how a tenant actually behaves — not just who they were on paper when they moved in."</blockquote>
+  <p>Every competitor freezes at move-in. We run through the whole tenancy. That's not a feature — it's a different category entirely.</p>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <p class="s-num" style="justify-content:center; margin-bottom:12px;">Early access</p>
+    <h2 class="s-title fi" style="margin: 0 auto 16px;">Be first when<br>we launch</h2>
+    <p class="fi">We're running our first pilots with letting agents and landlords in Q3 2026. Join the waitlist and we'll be in touch directly — no commitment, no card needed.</p>
+    <div class="cta-row fi">
+      <input type="email" placeholder="Your email address"/>
+      <button type="button" onclick="handleSignup()">Join waitlist</button>
+    </div>
+    <p class="cta-note" id="cta-note">No spam. No commitment. Just early access.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Tenura</div>
+  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · For landlords who want better data</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+function handleSignup() {
+  const input = document.querySelector('.cta-row input');
+  const note = document.getElementById('cta-note');
+  if (input.value && input.value.includes('@')) {
+    input.value = '';
+    note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
+    note.style.color = '#2d5c42';
+    note.style.fontWeight = '500';
+  } else {
+    input.style.borderColor = '#c44a4a';
+    input.placeholder = 'Please enter a valid email';
+    setTimeout(() => { input.style.borderColor = ''; input.placeholder = 'Your email address'; }, 2000);
+  }
+}
+</script>
+</body>
+</html>
