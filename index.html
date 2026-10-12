@@ -360,6 +360,67 @@ nav {
   line-height: 1.6;
 }
 
+/* ── VISION ── */
+.vision {
+  background: var(--ink);
+  padding: 120px 0;
+}
+
+.vision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+.vision .s-num { color: rgba(255,255,255,0.35); }
+.vision .s-num::after { background: rgba(255,255,255,0.1); }
+.vision .s-title { color: white; }
+.vision .s-body { color: rgba(255,255,255,0.55); max-width: 480px; }
+
+.vision-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.vc-stage { display: flex; flex-direction: column; gap: 8px; }
+
+.vc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  margin-bottom: 4px;
+}
+
+.vc-dot.active { background: var(--gold); }
+
+.vc-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.01em;
+}
+
+.vc-label.active { color: var(--gold); }
+
+.vc-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.vc-connector {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.1);
+  margin: 16px 4px;
+}
+
 /* ── FOR WHO ── */
 .forwho {
   background: var(--bg2);
@@ -603,6 +664,7 @@ footer {
   .cta-row { flex-direction: column; }
   footer { padding: 32px 24px; flex-direction: column; text-align: center; }
   .quote-band { padding: 80px 24px; }
+  .vision-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 </style>
 </head>
@@ -730,6 +792,41 @@ footer {
   </div>
 </section>
 
+<!-- WHERE THIS GOES -->
+<section class="vision full" id="vision">
+  <div class="inner">
+    <p class="s-num fi">The bigger picture</p>
+    <h2 class="s-title fi">The rearview mirror<br>is just the start</h2>
+    <div class="vision-grid fi">
+      <div class="vision-left">
+        <p class="s-body">Verified historical data is valuable on its own. But at scale, it becomes something more powerful — a forward-looking signal. The more tenancies we track, the more clearly we can see which factors at move-in predict good outcomes across a full tenancy.</p>
+        <p class="s-body" style="margin-top: 20px;">That's where Tenura is headed: not just "here's how they paid before," but "here's the probability they pay on time for the next 24 months." The data asset we're building today is what makes that possible.</p>
+      </div>
+      <div class="vision-right">
+        <div class="vision-card">
+          <div class="vc-stage">
+            <div class="vc-dot active"></div>
+            <div class="vc-label active">Now — Verified history</div>
+            <div class="vc-desc">Track and verify rent payment behaviour across every tenancy. Build the data asset nobody else has.</div>
+          </div>
+          <div class="vc-connector"></div>
+          <div class="vc-stage">
+            <div class="vc-dot"></div>
+            <div class="vc-label">Next — Pattern recognition</div>
+            <div class="vc-desc">Surface correlations between tenant profiles at move-in and outcomes across the tenancy. Identify the signals that matter.</div>
+          </div>
+          <div class="vc-connector"></div>
+          <div class="vc-stage">
+            <div class="vc-dot"></div>
+            <div class="vc-label">Future — Predictive scoring</div>
+            <div class="vc-desc">A forward-looking reliability score — not just who they've been, but who they're likely to be. The rental market's first real risk model.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOR WHO -->
 <section class="forwho full" id="who">
   <div class="inner">
@@ -779,6 +876,7 @@ footer {
           <th>Ongoing?</th>
           <th>Landlord-facing?</th>
           <th>Verified?</th>
+          <th>Predictive?</th>
         </tr>
       </thead>
       <tbody>
@@ -788,6 +886,7 @@ footer {
           <td class="tick">✓</td>
           <td class="cross">✗</td>
           <td class="tick">✓</td>
+          <td class="cross">✗</td>
         </tr>
         <tr>
           <td>Canopy</td>
@@ -795,6 +894,7 @@ footer {
           <td class="tick">✓</td>
           <td class="cross">✗</td>
           <td class="tick">✓</td>
+          <td class="cross">✗</td>
         </tr>
         <tr>
           <td>Goodlord</td>
@@ -802,6 +902,7 @@ footer {
           <td class="cross">✗</td>
           <td class="tick">✓</td>
           <td class="tick">✓</td>
+          <td class="cross">✗</td>
         </tr>
         <tr>
           <td>Experian</td>
@@ -809,6 +910,7 @@ footer {
           <td class="tick">✓</td>
           <td class="cross">✗</td>
           <td class="tick">✓</td>
+          <td class="cross">✗</td>
         </tr>
         <tr class="us">
           <td>Tenura</td>
@@ -816,6 +918,7 @@ footer {
           <td class="tick">✓</td>
           <td class="tick">✓</td>
           <td class="tick">✓</td>
+          <td class="tick">✓ <span style="font-size:11px; font-weight:400; opacity:0.7;">(roadmap)</span></td>
         </tr>
       </tbody>
     </table>
