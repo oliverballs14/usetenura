@@ -227,6 +227,8 @@ footer {
 
 .f-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; }
 .f-copy { font-size: 13px; color: rgba(255,255,255,0.28); }
+.f-copy a { color: inherit; text-decoration: underline; }
+.f-copy a:hover { color: var(--accent); }
 
 /* PAGE HERO (inner pages) */
 .page-hero {

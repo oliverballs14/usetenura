@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>For Landlords — Tenura</title>
 <meta name="description" content="Tenura for landlords and letting agents — verified rent payment behaviour, ongoing visibility, portfolio dashboards, and Section 8 compliance records."/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="canonical" href="https://usetenura.com/for-landlords.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Tenura"/>
+<meta property="og:title" content="For Landlords — Tenura"/>
+<meta property="og:description" content="Tenura for landlords and letting agents — verified rent payment behaviour, ongoing visibility, portfolio dashboards, and Section 8 compliance records."/>
+<meta property="og:url" content="https://usetenura.com/for-landlords.html"/>
+<meta property="og:image" content="https://usetenura.com/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#101412"/>
 <link rel="stylesheet" href="shared.css"/>
 <style>
 /* FOR LANDLORDS PAGE SPECIFIC */
@@ -718,7 +728,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="f-logo">Tenura</div>
-  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · For landlords who want better data</div>
+  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · <a href="privacy.html">Privacy</a></div>
 </footer>
 
 <script>
@@ -732,20 +742,7 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.06 });
 document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 
-function handleSignup() {
-  const input = document.querySelector('.cta-row input');
-  const note = document.getElementById('cta-note');
-  if (input.value && input.value.includes('@')) {
-    input.value = '';
-    note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
-    note.style.color = '#7ee2a8';
-    note.style.fontWeight = '500';
-  } else {
-    input.style.borderColor = '#c44a4a';
-    input.placeholder = 'Please enter a valid email';
-    setTimeout(() => { input.style.borderColor = ''; input.placeholder = 'Your email address'; }, 2000);
-  }
-}
 </script>
+<script src="waitlist.js"></script>
 </body>
 </html>

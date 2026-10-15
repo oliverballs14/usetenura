@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tenura — Verified tenant behaviour for UK landlords</title>
 <meta name="description" content="Tenura gives landlords a verified, ongoing picture of tenant payment behaviour. Not a one-off credit check. The real thing."/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="canonical" href="https://usetenura.com/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Tenura"/>
+<meta property="og:title" content="Tenura — Verified tenant behaviour for UK landlords"/>
+<meta property="og:description" content="Tenura gives landlords a verified, ongoing picture of tenant payment behaviour. Not a one-off credit check. The real thing."/>
+<meta property="og:url" content="https://usetenura.com/"/>
+<meta property="og:image" content="https://usetenura.com/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#101412"/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
@@ -646,6 +656,8 @@ footer {
 
 .f-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; }
 .f-copy { font-size: 13px; color: rgba(255,255,255,0.28); }
+.f-copy a { color: inherit; text-decoration: underline; }
+.f-copy a:hover { color: var(--accent); }
 
 /* ── FADE IN ── */
 .fi { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
@@ -951,7 +963,7 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="f-logo">Tenura</div>
-  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · For landlords who want better data</div>
+  <div class="f-copy">© 2026 · Built in the UK · Pre-launch · <a href="privacy.html">Privacy</a></div>
 </footer>
 
 <script>
@@ -966,23 +978,7 @@ const obs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 
-function handleSignup() {
-  const input = document.querySelector('.cta-row input');
-  const note = document.getElementById('cta-note');
-  if (input.value && input.value.includes('@')) {
-    input.value = '';
-    note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
-    note.style.color = '#7ee2a8';
-    note.style.fontWeight = '500';
-  } else {
-    input.style.borderColor = '#c44a4a';
-    input.placeholder = 'Please enter a valid email';
-    setTimeout(() => {
-      input.style.borderColor = '';
-      input.placeholder = 'Your email address';
-    }, 2000);
-  }
-}
 </script>
+<script src="waitlist.js"></script>
 </body>
 </html>
