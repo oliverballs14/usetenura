@@ -36,7 +36,7 @@
 .ps-num {
   font-family: 'DM Serif Display', serif;
   font-size: 72px;
-  color: var(--rule);
+  color: rgba(126,226,168,0.3);
   line-height: 1;
   padding-top: 6px;
 }
@@ -248,12 +248,12 @@
   padding: 4px 10px;
   border-radius: 4px;
   background: var(--green-light);
-  color: var(--green);
+  color: var(--accent);
 }
 
 /* FOR TENANTS */
 .for-tenants {
-  background: var(--ink);
+  background: radial-gradient(ellipse at 50% 130%, rgba(94,214,150,0.38) 0%, rgba(16,20,18,0) 65%), #0b100d;
   padding: 100px 0;
 }
 
@@ -713,7 +713,7 @@ function handleSignup() {
   if (input.value && input.value.includes('@')) {
     input.value = '';
     note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
-    note.style.color = '#2d5c42';
+    note.style.color = '#7ee2a8';
     note.style.fontWeight = '500';
   } else {
     input.style.borderColor = '#c44a4a';

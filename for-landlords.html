@@ -108,7 +108,7 @@
 .feat-num {
   font-family: 'DM Serif Display', serif;
   font-size: 36px;
-  color: var(--rule);
+  color: rgba(126,226,168,0.3);
   line-height: 1;
   margin-bottom: 16px;
 }
@@ -250,7 +250,7 @@
 }
 
 .s8-detail {
-  background: white;
+  background: var(--bg2);
   border-radius: 10px;
   padding: 18px 20px;
   margin-top: 16px;
@@ -296,7 +296,7 @@
 
 .pricing-card.featured {
   background: var(--green);
-  border-color: var(--green);
+  border-color: var(--accent);
 }
 
 .pc-tag {
@@ -313,7 +313,7 @@
 
 .pricing-card:not(.featured) .pc-tag {
   background: var(--green-light);
-  color: var(--green);
+  color: var(--accent);
 }
 
 .pricing-card.featured .pc-tag {
@@ -347,7 +347,7 @@
 }
 
 .pricing-card:not(.featured) .pc-period { color: var(--ink-muted); }
-.pricing-card.featured .pc-period { color: rgba(255,255,255,0.5); }
+.pricing-card.featured .pc-period { color: rgba(255,255,255,0.55); }
 
 .pc-features {
   list-style: none;
@@ -374,7 +374,7 @@
   margin-top: 2px;
 }
 
-.pricing-card:not(.featured) .pc-check { color: var(--green); }
+.pricing-card:not(.featured) .pc-check { color: var(--accent); }
 .pricing-card.featured .pc-check { color: rgba(255,255,255,0.7); }
 
 .pc-cta {
@@ -393,14 +393,14 @@
 
 .pricing-card:not(.featured) .pc-cta {
   background: var(--green-light);
-  color: var(--green);
+  color: var(--accent);
 }
 
 .pricing-card:not(.featured) .pc-cta:hover { background: var(--green); color: white; }
 
 .pricing-card.featured .pc-cta {
-  background: white;
-  color: var(--green);
+  background: var(--bg2);
+  color: var(--accent);
 }
 
 .pricing-card.featured .pc-cta:hover { background: rgba(255,255,255,0.9); }
@@ -483,7 +483,7 @@
         </div>
         <div class="ov-card">
           <div class="ov-label">New applicant — Tenura score</div>
-          <div class="ov-value" style="color: var(--green);">89</div>
+          <div class="ov-value" style="color: var(--accent);">89</div>
           <div class="ov-sub" style="margin-bottom: 14px;">Reliability score across 2 verified tenancies · 24 months</div>
           <div class="ov-row"><span>On-time rate</span><span>89%</span></div>
           <div class="ov-row"><span>Missed payments</span><span style="color:#7bc99b;">0</span></div>
@@ -738,7 +738,7 @@ function handleSignup() {
   if (input.value && input.value.includes('@')) {
     input.value = '';
     note.textContent = '✓ You\'re on the list. We\'ll be in touch shortly.';
-    note.style.color = '#2d5c42';
+    note.style.color = '#7ee2a8';
     note.style.fontWeight = '500';
   } else {
     input.style.borderColor = '#c44a4a';
