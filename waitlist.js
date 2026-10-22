@@ -5,7 +5,7 @@
 // and stored in the Formspree dashboard. Until this is set, the form falls back
 // to opening the visitor's email app addressed to CONTACT_EMAIL, so no signup
 // is ever silently lost.
-const WAITLIST_ENDPOINT = '';
+const WAITLIST_ENDPOINT = 'https://formspree.io/f/mnppawrj';
 const CONTACT_EMAIL = 'hello@usetenura.com';
 
 async function handleSignup() {
