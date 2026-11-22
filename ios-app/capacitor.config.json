@@ -1,0 +1,7 @@
+{
+  "appId": "com.usetenura.app",
+  "appName": "Tenura",
+  "webDir": "www",
+  "backgroundColor": "#080c0a",
+  "ios": { "contentInset": "always" }
+}
