@@ -16,7 +16,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#101412; --surface:rgba(255,255,255,.05); --surface2:rgba(255,255,255,.09); --line:rgba(255,255,255,.11);
@@ -44,7 +44,7 @@ body{
   background-color:var(--bg);
   background-image:radial-gradient(ellipse 60% 50% at 0% 100%,var(--glow),transparent 70%),radial-gradient(ellipse 50% 45% at 100% 0%,var(--glow2),transparent 70%);
   background-attachment:fixed;
-  color:var(--ink); font:400 16px/1.5 'DM Sans',system-ui,sans-serif; min-height:100vh;
+  color:var(--ink); font:400 16px/1.5 'Inter',system-ui,sans-serif; min-height:100vh;
 }
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -54,19 +54,20 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
 .banner{background:var(--green-bg);border-bottom:1px solid var(--line);font-size:13px;color:var(--soft);padding:8px 0;text-align:center}
 .banner b{color:var(--green);font-weight:600}
 header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 12px;flex-wrap:wrap}
-.brand{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-.01em}
-.brand small{font:500 12px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Inter Tight','Inter',sans-serif;font-weight:600;font-size:26px;letter-spacing:-.03em}
+.brand .lm{width:30px;height:30px;display:block}
+.brand small{font:500 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle}
 .agency{font-size:14px;color:var(--soft)}
 nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 16px;border-bottom:1px solid var(--line)}
 nav.tabs button{background:none;border:1px solid transparent;border-radius:99px;padding:8px 16px;color:var(--soft);white-space:nowrap}
 nav.tabs button[aria-selected="true"]{background:var(--surface2);border-color:var(--line);color:var(--ink)}
 main{padding:24px 0 64px}
-h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-.01em}
+h1,h2,h3{font-family:'Inter Tight','Inter',sans-serif;font-weight:600;letter-spacing:-.03em}
 h2{font-size:30px;margin-bottom:4px}
 .sub{color:var(--soft);margin-bottom:22px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
-.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
-.stat .n{font:400 44px/1 'DM Serif Display',serif;color:var(--green)}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:18px}
+.stat .n{font:600 44px/1 'Inter Tight','Inter',sans-serif;color:var(--green)}
 .stat .l{color:var(--soft);font-size:14px;margin-top:6px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media (max-width:760px){.two{grid-template-columns:1fr}}
@@ -91,7 +92,7 @@ input[type=text],input[type=email],input[type=search],select{background:var(--su
 .phead h3{font-size:28px}.phead .addr{color:var(--soft)}
 .ring{position:relative;width:104px;height:104px;flex:none}
 .ring svg{transform:rotate(-90deg)}
-.ring .num{position:absolute;inset:0;display:grid;place-items:center;font:400 34px 'DM Serif Display',serif}
+.ring .num{position:absolute;inset:0;display:grid;place-items:center;font:600 34px 'Inter Tight','Inter',sans-serif}
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px}
 .metric{background:var(--surface2);border-radius:12px;padding:12px 14px}
 .metric .k{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
@@ -115,7 +116,7 @@ form.new label{display:grid;gap:6px;font-size:14px;color:var(--soft)}
 .steps li.now .dot{border-color:var(--green)}
 dialog{margin:auto;max-height:calc(100vh - 32px);overflow:auto;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:calc(100% - 32px)}
 dialog::backdrop{background:rgba(0,0,0,.6)}
-dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:var(--surface2);border-radius:12px;padding:14px;margin:14px 0}
+dialog pre{white-space:pre-wrap;font:14px/1.6 'Inter',sans-serif;background:var(--surface2);border-radius:12px;padding:14px;margin:14px 0}
 .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 .tablewrap{overflow-x:auto}
 table.cmp{border-collapse:separate;border-spacing:0;width:100%;min-width:560px}
@@ -123,7 +124,7 @@ table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px so
 table.cmp th{font-weight:500}
 table.cmp th.rowh{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em;width:170px}
 table.cmp td.best{background:var(--green-bg);font-weight:600}
-table.cmp .nm{font:400 22px 'DM Serif Display',serif}
+table.cmp .nm{font:600 22px 'Inter Tight','Inter',sans-serif}
 .cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;background:var(--green-bg);border-color:var(--line)}
 .cta h3{font-size:22px}
 .note{font-size:13px;color:var(--muted);margin-top:12px}
@@ -154,7 +155,7 @@ table.cmp .nm{font:400 22px 'DM Serif Display',serif}
 <div class="banner"><div class="wrap"><b>Interactive demo</b> · every name and number below is fictional · Tenura is in pre-launch</div></div>
 <section class="login" id="login" aria-label="Sign in" hidden>
   <div class="hero">
-    <div class="brand">Tenura<small style="font:500 12px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle">for agents</small></div>
+    <div class="brand"><img class="lm" src="../logo-mark.svg" alt="" width="30" height="30">Tenura<small style="font:500 12px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle">for agents</small></div>
     <h1>Your last tenant had perfect references. <em>So did the one before.</em></h1>
     <p>See how tenants really behave, before you let and while they live there. Verified, consented and in one place.</p>
   </div>
@@ -174,7 +175,7 @@ table.cmp .nm{font:400 22px 'DM Serif Display',serif}
 </section>
 <div class="wrap" id="app" hidden>
   <header class="top">
-    <div class="brand">Tenura<small>for agents</small></div>
+    <div class="brand"><img class="lm" src="../logo-mark.svg" alt="" width="30" height="30">Tenura<small>for agents</small></div>
     <div class="who-in"><span class="agency" id="agency">Oakfield Lettings (demo agency)</span><button class="btn" id="out" type="button" style="padding:6px 14px;font-size:14px">Sign out</button></div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Sections">
