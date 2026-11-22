@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tenura Agent Demo</title>
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#101412">
+<meta name="theme-color" content="#080c0a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Tenura">
@@ -19,30 +19,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#101412; --surface:rgba(255,255,255,.05); --surface2:rgba(255,255,255,.09); --line:rgba(255,255,255,.11);
-  --ink:#ece9dc; --soft:#a9b8ad; --muted:#8a9b90; --green:#7ee2a8; --green-bg:rgba(126,226,168,.12);
+  color-scheme:dark;
+  --bg:#080c0a; --surface:rgba(255,255,255,.04); --surface2:rgba(255,255,255,.08); --line:rgba(255,255,255,.10);
+  --ink:#eef3ee; --soft:#b3c2b8; --muted:#809388; --green:#7ee2a8; --green-bg:rgba(126,226,168,.12);
   --amber:#f2c76e; --amber-bg:rgba(242,199,110,.12); --red:#f28b82; --red-bg:rgba(242,139,130,.12);
-  --glow:rgba(94,214,150,.20); --glow2:rgba(63,174,120,.14);
-}
-@media (prefers-color-scheme: light){
-  :root:not([data-theme="dark"]){
-    --bg:#f4f2ea; --surface:rgba(255,255,255,.75); --surface2:rgba(16,20,18,.06); --line:rgba(16,20,18,.13);
-    --ink:#17211b; --soft:#3f5348; --muted:#5d6e64; --green:#1b7448; --green-bg:rgba(27,116,72,.11);
-    --amber:#8a5d00; --amber-bg:rgba(138,93,0,.11); --red:#b3261e; --red-bg:rgba(179,38,30,.10);
-    --glow:rgba(94,214,150,.22); --glow2:rgba(63,174,120,.12);
-  }
-}
-:root[data-theme="light"]{
-  --bg:#f4f2ea; --surface:rgba(255,255,255,.75); --surface2:rgba(16,20,18,.06); --line:rgba(16,20,18,.13);
-  --ink:#17211b; --soft:#3f5348; --muted:#5d6e64; --green:#1b7448; --green-bg:rgba(27,116,72,.11);
-  --amber:#8a5d00; --amber-bg:rgba(138,93,0,.11); --red:#b3261e; --red-bg:rgba(179,38,30,.10);
-  --glow:rgba(94,214,150,.22); --glow2:rgba(63,174,120,.12);
 }
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
 body{
   background-color:var(--bg);
-  background-image:radial-gradient(ellipse 60% 50% at 0% 100%,var(--glow),transparent 70%),radial-gradient(ellipse 50% 45% at 100% 0%,var(--glow2),transparent 70%);
+  background-image:radial-gradient(65% 55% at 88% 0%,rgba(63,174,120,.30),transparent 70%),radial-gradient(55% 50% at 0% 100%,rgba(94,214,150,.20),transparent 70%),radial-gradient(45% 40% at 55% 52%,rgba(126,226,168,.055),transparent 70%);
   background-attachment:fixed;
   color:var(--ink); font:400 16px/1.5 'Inter',system-ui,sans-serif; min-height:100vh;
 }
