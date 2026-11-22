@@ -17,9 +17,8 @@
 <meta property="og:url" content="https://usetenura.com/"/>
 <meta property="og:image" content="https://usetenura.com/og.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="theme-color" content="#101412"/>
+<meta name="theme-color" content="#080c0a"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -686,12 +685,13 @@ footer {
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Tenura","url":"https://usetenura.com/"}</script>
+<link rel="stylesheet" href="theme.css"/>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Tenura</a>
+  <a href="#" class="nav-logo"><img class="lm" src="logo-mark.svg" alt="" width="27" height="27"><span>Tenura</span></a>
   <ul class="nav-links">
     <li><a href="problem.html">The problem</a></li>
     <li><a href="how-it-works.html">How it works</a></li>
@@ -703,26 +703,47 @@ footer {
 <!-- HERO -->
 <div style="max-width:100%; overflow:hidden;">
 <section class="hero">
-  <p class="hero-label"><span></span>Launching 2026 · UK rental market</p>
-  <h1>Your last tenant had<br><em>perfect references.</em><br>So did the one before.</h1>
-  <p class="hero-sub">Tenura tracks verified rent payment behaviour across the whole tenancy — not just who someone was on paper when they applied.</p>
-  <div class="hero-actions">
-    <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
-    <a href="how-it-works.html" class="btn btn-ghost">See how it works →</a>
+  <div class="hero-copy">
+    <p class="hero-label"><span></span>Launching 2026 · UK rental market</p>
+    <h1>Your last tenant had<br><em>perfect references.</em><br>So did the one before.</h1>
+    <p class="hero-sub">Tenura tracks verified rent payment behaviour across the whole tenancy — not just who someone was on paper when they applied.</p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
+      <a href="how-it-works.html" class="btn btn-ghost">See how it works →</a>
+    </div>
   </div>
-  <div class="hero-divider"></div>
-  <div class="hero-stats">
-    <div>
-      <div class="hero-stat-num">S.21</div>
-      <div class="hero-stat-label">Abolished May 2026. A bad tenant is now a year-long legal problem.</div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hv-card">
+      <div class="hv-top"><span class="hv-tag">Tenant record · example</span><span class="hv-pill">Verified</span></div>
+      <div class="hv-id">
+        <div class="hv-ring"><svg width="78" height="78" viewBox="0 0 78 78"><circle cx="39" cy="39" r="33" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="7"/><circle cx="39" cy="39" r="33" fill="none" stroke="#7ee2a8" stroke-width="7" stroke-linecap="round" stroke-dasharray="207.3" stroke-dashoffset="16.6"/></svg><b>92</b></div>
+        <div><div class="hv-name">Strong record</div><div class="hv-addr">14 Orchard Row · 18 months</div></div>
+      </div>
+      <div class="hv-rows">
+        <div class="hv-row"><span>Rent</span><span>17 of 18 on time</span></div>
+        <div class="hv-row"><span>Inspections</span><span>Passed</span></div>
+        <div class="hv-row"><span>Reference</span><span>Landlord confirmed</span></div>
+      </div>
+      <div class="hv-bars"><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i class="l" style="height:55%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i><i style="height:100%"></i></div>
+      <div class="hv-cap">Rent history, last 12 months</div>
     </div>
-    <div>
-      <div class="hero-stat-num">£9k+</div>
-      <div class="hero-stat-label">Average cost of a bad tenant — lost rent, legal fees, stress.</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">0</div>
-      <div class="hero-stat-label">Platforms tracking verified tenant behaviour across a full tenancy. Until now.</div>
+    <div class="hv-chip"><span class="dot">✓</span>Rent paid on time · October</div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-divider"></div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">S.21</div>
+        <div class="hero-stat-label">Abolished May 2026. A bad tenant is now a year-long legal problem.</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">£9k+</div>
+        <div class="hero-stat-label">Average cost of a bad tenant — lost rent, legal fees, stress.</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">0</div>
+        <div class="hero-stat-label">Platforms tracking verified tenant behaviour across a full tenancy. Until now.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -966,7 +987,7 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="f-logo">Tenura</div>
+  <div class="f-logo"><img class="lm" src="logo-mark.svg" alt="" width="27" height="27"><span>Tenura</span></div>
   <div class="f-copy">© 2026 · Built in the UK · Pre-launch · <a href="privacy.html">Privacy</a></div>
 </footer>
 
