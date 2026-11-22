@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenura Agent Demo</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101412">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tenura">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#101412; --surface:rgba(255,255,255,.05); --surface2:rgba(255,255,255,.09); --line:rgba(255,255,255,.11);
+  --ink:#ece9dc; --soft:#a9b8ad; --muted:#8a9b90; --green:#7ee2a8; --green-bg:rgba(126,226,168,.12);
+  --amber:#f2c76e; --amber-bg:rgba(242,199,110,.12); --red:#f28b82; --red-bg:rgba(242,139,130,.12);
+  --glow:rgba(94,214,150,.20); --glow2:rgba(63,174,120,.14);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f4f2ea; --surface:rgba(255,255,255,.75); --surface2:rgba(16,20,18,.06); --line:rgba(16,20,18,.13);
+    --ink:#17211b; --soft:#3f5348; --muted:#5d6e64; --green:#1b7448; --green-bg:rgba(27,116,72,.11);
+    --amber:#8a5d00; --amber-bg:rgba(138,93,0,.11); --red:#b3261e; --red-bg:rgba(179,38,30,.10);
+    --glow:rgba(94,214,150,.22); --glow2:rgba(63,174,120,.12);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f4f2ea; --surface:rgba(255,255,255,.75); --surface2:rgba(16,20,18,.06); --line:rgba(16,20,18,.13);
+  --ink:#17211b; --soft:#3f5348; --muted:#5d6e64; --green:#1b7448; --green-bg:rgba(27,116,72,.11);
+  --amber:#8a5d00; --amber-bg:rgba(138,93,0,.11); --red:#b3261e; --red-bg:rgba(179,38,30,.10);
+  --glow:rgba(94,214,150,.22); --glow2:rgba(63,174,120,.12);
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background-color:var(--bg);
+  background-image:radial-gradient(ellipse 60% 50% at 0% 100%,var(--glow),transparent 70%),radial-gradient(ellipse 50% 45% at 100% 0%,var(--glow2),transparent 70%);
+  background-attachment:fixed;
+  color:var(--ink); font:400 16px/1.5 'DM Sans',system-ui,sans-serif; min-height:100vh;
+}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.banner{background:var(--green-bg);border-bottom:1px solid var(--line);font-size:13px;color:var(--soft);padding:8px 0;text-align:center}
+.banner b{color:var(--green);font-weight:600}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 12px;flex-wrap:wrap}
+.brand{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-.01em}
+.brand small{font:500 12px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle}
+.agency{font-size:14px;color:var(--soft)}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 16px;border-bottom:1px solid var(--line)}
+nav.tabs button{background:none;border:1px solid transparent;border-radius:99px;padding:8px 16px;color:var(--soft);white-space:nowrap}
+nav.tabs button[aria-selected="true"]{background:var(--surface2);border-color:var(--line);color:var(--ink)}
+main{padding:24px 0 64px}
+h1,h2,h3{font-family:'DM Serif Display',serif;font-weight:400;letter-spacing:-.01em}
+h2{font-size:30px;margin-bottom:4px}
+.sub{color:var(--soft);margin-bottom:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.stat .n{font:400 44px/1 'DM Serif Display',serif;color:var(--green)}
+.stat .l{color:var(--soft);font-size:14px;margin-top:6px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.list{list-style:none;padding:0;display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;background:none;border:0;border-radius:12px;padding:10px 12px}
+button.row:hover{background:var(--surface2)}
+.row .who{font-weight:500}
+.row .where{font-size:13px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.pill.good{background:var(--green-bg);color:var(--green)}
+.pill.fair{background:var(--amber-bg);color:var(--amber)}
+.pill.watch{background:var(--red-bg);color:var(--red)}
+.feed li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.feed li:last-child{border-bottom:0}
+.feed time{min-width:74px;color:var(--muted);font-size:13px;padding-top:2px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+input[type=text],input[type=email],input[type=search],select{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;width:100%}
+.tools input{flex:1;min-width:180px}.tools select{width:auto}
+.split{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:16px;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.phead{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.phead h3{font-size:28px}.phead .addr{color:var(--soft)}
+.ring{position:relative;width:104px;height:104px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .num{position:absolute;inset:0;display:grid;place-items:center;font:400 34px 'DM Serif Display',serif}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.metric{background:var(--surface2);border-radius:12px;padding:12px 14px}
+.metric .k{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.metric .v{font-weight:600;margin-top:2px}
+.timeline{list-style:none;padding:0;border-left:2px solid var(--line);margin:8px 0 20px 6px}
+.timeline li{position:relative;padding:0 0 18px 20px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--green)}
+.timeline .when{font-size:13px;color:var(--muted)}
+.timeline .kind{font-weight:600}
+.btn{border:1px solid var(--line);background:var(--surface2);border-radius:99px;padding:10px 20px;font-weight:500}
+.btn.primary{background:var(--green);border-color:var(--green);color:#0d1a13;font-weight:600}
+.btn:disabled{opacity:.55;cursor:default}
+.empty{color:var(--muted);text-align:center;padding:48px 16px}
+form.new{display:grid;gap:14px;max-width:560px}
+form.new label{display:grid;gap:6px;font-size:14px;color:var(--soft)}
+.steps{list-style:none;padding:0;display:grid;gap:10px;margin:18px 0}
+.steps li{display:flex;gap:12px;align-items:center;color:var(--muted)}
+.steps li .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+.steps li.done{color:var(--ink)}
+.steps li.done .dot{background:var(--green);border-color:var(--green);color:#0d1a13}
+.steps li.now .dot{border-color:var(--green)}
+dialog{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:calc(100% - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:var(--surface2);border-radius:12px;padding:14px;margin:14px 0}
+.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.foot{color:var(--muted);font-size:13px;text-align:center;padding:24px 0 40px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="banner"><div class="wrap"><b>Interactive demo</b> · every name and number below is fictional · Tenura is in pre-launch</div></div>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Tenura<small>for agents</small></div>
+    <div class="agency">Oakfield Lettings (demo agency)</div>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="t-overview" aria-selected="true" data-view="overview">Overview</button>
+    <button role="tab" id="t-tenancies" aria-selected="false" data-view="tenancies">Tenancies</button>
+    <button role="tab" id="t-new" aria-selected="false" data-view="new">New check</button>
+  </nav>
+
+  <main>
+    <section id="v-overview" aria-labelledby="t-overview">
+      <h2>Good morning</h2>
+      <p class="sub">Where your tenancies stand today.</p>
+      <div class="grid4" id="stats"></div>
+      <div class="two">
+        <div class="card"><h3 style="font-size:22px;margin-bottom:10px">Needs attention</h3><ul class="list" id="attention"></ul></div>
+        <div class="card"><h3 style="font-size:22px;margin-bottom:6px">Recent activity</h3><ul class="list feed" id="feed"></ul></div>
+      </div>
+    </section>
+
+    <section id="v-tenancies" aria-labelledby="t-tenancies" hidden>
+      <h2>Tenancies</h2>
+      <p class="sub">Verified behaviour for every tenant you manage. Select one to see the record.</p>
+      <div class="tools">
+        <input type="search" id="q" placeholder="Search tenants" aria-label="Search tenant or address">
+        <select id="f" aria-label="Filter by rating">
+          <option value="all">All ratings</option><option value="good">Strong</option><option value="fair">Fair</option><option value="watch">Watch</option>
+        </select>
+      </div>
+      <div class="split">
+        <div class="card"><ul class="list" id="tlist"></ul></div>
+        <div class="card" id="profile" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="v-new" aria-labelledby="t-new" hidden>
+      <h2>New tenant check</h2>
+      <p class="sub">Run a pre-tenancy check before you let. The applicant consents first, so it's their data, shared by them.</p>
+      <div class="card">
+        <form class="new" id="form">
+          <label>Applicant name<input type="text" id="n" required placeholder="e.g. Jordan Ellis" autocomplete="off"></label>
+          <label>Applicant email<input type="email" id="e" required placeholder="jordan@example.com" autocomplete="off"></label>
+          <label>Property<input type="text" id="a" required placeholder="e.g. 12 Beech Road" autocomplete="off"></label>
+          <div><button class="btn primary" id="go" type="submit">Send consent request</button></div>
+        </form>
+        <ol class="steps" id="steps" aria-live="polite" hidden></ol>
+        <div id="result" hidden></div>
+      </div>
+    </section>
+  </main>
+  <p class="foot">Demo built to gather feedback from letting agents. No real tenant data is used or stored.</p>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-t">
+  <h3 id="dlg-t" style="font-size:24px">Share with landlord</h3>
+  <p class="sub" style="margin:6px 0 0">This is what the landlord would receive.</p>
+  <pre id="share"></pre>
+  <div class="actions"><button class="btn" id="copy" type="button">Copy text</button><button class="btn primary" id="close" type="button">Close</button></div>
+</dialog>
+
+<script>
+const T=[
+ {id:1,name:'Amelia Hart',addr:'14 Orchard Row',landlord:'M. Whitfield',months:18,score:92,rent:'18 of 18 on time',insp:'Passed',maint:'1, resolved in 2 days',ref:'Previous landlord confirmed',
+  ev:[['Oct 2026','Rent','Paid on time, month 18.'],['Aug 2026','Inspection','Routine inspection passed. Property in excellent condition.'],['Mar 2026','Maintenance','Reported a boiler fault within 24 hours. Resolved in 2 days.'],['Apr 2025','Move-in','Tenancy started. ID and right to rent verified.']]},
+ {id:2,name:'Priya & Sam Nair',addr:'7 Linden Close',landlord:'R. Banerjee',months:26,score:96,rent:'26 of 26 on time',insp:'Passed (3 of 3)',maint:'0',ref:'Two landlord references confirmed',
+  ev:[['Oct 2026','Rent','Paid on time, month 26.'],['Jun 2026','Renewal','Tenancy renewed for 12 months at tenant request.'],['Feb 2026','Inspection','Inspection passed. Garden and property well kept.'],['Sep 2024','Move-in','Tenancy started. ID and right to rent verified.']]},
+ {id:3,name:'Marta Kowalska',addr:'9 Elm Gardens',landlord:'T. Osei',months:12,score:88,rent:'11 of 12 on time',insp:'Passed',maint:'2, both resolved',ref:'Previous landlord confirmed',
+  ev:[['Oct 2026','Rent','Paid on time, month 12.'],['Jul 2026','Rent','Paid 3 days late. Tenant notified the agent in advance.'],['Apr 2026','Maintenance','Reported a leak promptly. Resolved in 1 day.'],['Nov 2025','Move-in','Tenancy started. ID and right to rent verified.']]},
+ {id:4,name:'Daniel Okafor',addr:'Flat 3, 22 Mill Lane',landlord:'S. Patel',months:9,score:74,rent:'7 of 9 on time',insp:'Passed with notes',maint:'1, open',ref:'Employer reference confirmed',
+  ev:[['Oct 2026','Rent','Paid 6 days late.'],['Aug 2026','Inspection','Passed with notes: minor wear in hallway.'],['Jun 2026','Rent','Paid 4 days late.'],['Feb 2026','Move-in','Tenancy started. ID and right to rent verified.']]},
+ {id:5,name:'Callum Reid',addr:'41 Harbour Street',landlord:'J. Lawson',months:5,score:58,rent:'2 of 5 on time',insp:'Follow-up needed',maint:'0',ref:'Reference pending',
+  ev:[['Oct 2026','Rent','Not received by day 10. Reminder sent.'],['Sep 2026','Inspection','Follow-up needed: noise report from neighbour, items left in communal area.'],['Aug 2026','Rent','Paid 9 days late.'],['Jun 2026','Move-in','Tenancy started. ID and right to rent verified.']]}
+];
+const FEED=[['Today','Callum Reid: rent reminder sent (day 10).'],['Yesterday','Priya & Sam Nair: renewal documents signed.'],['2 days ago','Daniel Okafor: inspection notes added.'],['Last week','Amelia Hart: rent paid on time, month 18.']];
+const $=s=>document.querySelector(s);
+const band=s=>s>=85?'good':s>=65?'fair':'watch';
+const label=b=>({good:'Strong',fair:'Fair',watch:'Watch'})[b];
+const pill=s=>`<span class="pill ${band(s)}">${s} · ${label(band(s))}</span>`;
+let sel=T[0].id;
+
+function showView(v){
+  for(const id of ['overview','tenancies','new']){
+    $('#v-'+id).hidden=id!==v; $('#t-'+id).setAttribute('aria-selected',String(id===v));
+  }
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+
+function renderOverview(){
+  const avg=Math.round(T.reduce((a,t)=>a+t.score,0)/T.length);
+  const watch=T.filter(t=>band(t.score)==='watch');
+  $('#stats').innerHTML=
+   `<div class="card stat"><div class="n">${T.length}</div><div class="l">Active tenancies</div></div>
+    <div class="card stat"><div class="n">${avg}</div><div class="l">Average behaviour score</div></div>
+    <div class="card stat"><div class="n">${watch.length}</div><div class="l">Need attention</div></div>
+    <div class="card stat"><div class="n">3</div><div class="l">Pre-tenancy checks this month</div></div>`;
+  $('#attention').innerHTML=(watch.length?watch:T.filter(t=>band(t.score)==='fair')).map(t=>
+    `<li><button class="row" data-open="${t.id}"><span><span class="who">${t.name}</span><br><span class="where">${t.addr}</span></span>${pill(t.score)}</button></li>`).join('')||'<li class="empty">Nothing needs attention.</li>';
+  $('#feed').innerHTML=FEED.map(f=>`<li><time>${f[0]}</time><span>${f[1]}</span></li>`).join('');
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{sel=+b.dataset.open;showView('tenancies');renderTenancies();}));
+}
+
+function renderTenancies(){
+  const q=$('#q').value.trim().toLowerCase(), f=$('#f').value;
+  const rows=T.filter(t=>(!q||(t.name+' '+t.addr).toLowerCase().includes(q))&&(f==='all'||band(t.score)===f));
+  $('#tlist').innerHTML=rows.map(t=>
+    `<li><button class="row" data-id="${t.id}" aria-current="${t.id===sel}" style="${t.id===sel?'background:var(--surface2)':''}"><span><span class="who">${t.name}</span><br><span class="where">${t.addr}</span></span>${pill(t.score)}</button></li>`).join('')||'<li class="empty">No tenancies match.</li>';
+  document.querySelectorAll('#tlist [data-id]').forEach(b=>b.addEventListener('click',()=>{sel=+b.dataset.id;renderTenancies();}));
+  renderProfile();
+}
+
+function renderProfile(){
+  const t=T.find(x=>x.id===sel); const p=$('#profile');
+  if(!t){p.innerHTML='<div class="empty">Select a tenancy to see the record.</div>';return;}
+  const b=band(t.score), col=b==='good'?'var(--green)':b==='fair'?'var(--amber)':'var(--red)';
+  const C=2*Math.PI*42, off=C*(1-t.score/100);
+  p.innerHTML=
+   `<div class="phead">
+      <div class="ring"><svg width="104" height="104" viewBox="0 0 104 104" aria-hidden="true"><circle cx="52" cy="52" r="42" fill="none" stroke="var(--line)" stroke-width="9"/><circle cx="52" cy="52" r="42" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/></svg><div class="num" aria-label="Score ${t.score}">${t.score}</div></div>
+      <div><h3>${t.name}</h3><div class="addr">${t.addr} · landlord ${t.landlord}</div><div style="margin-top:8px">${pill(t.score)} <span class="where" style="color:var(--muted);font-size:13px">· ${t.months} months</span></div></div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="k">Rent</div><div class="v">${t.rent}</div></div>
+      <div class="metric"><div class="k">Inspections</div><div class="v">${t.insp}</div></div>
+      <div class="metric"><div class="k">Maintenance reports</div><div class="v">${t.maint}</div></div>
+      <div class="metric"><div class="k">References</div><div class="v">${t.ref}</div></div>
+    </div>
+    <h3 style="font-size:20px;margin-bottom:10px">Verified timeline</h3>
+    <ul class="timeline">${t.ev.map(e=>`<li><div class="when">${e[0]}</div><div><span class="kind">${e[1]}.</span> ${e[2]}</div></li>`).join('')}</ul>
+    <button class="btn primary" id="share-btn" type="button">Share with landlord</button>`;
+  $('#share-btn').addEventListener('click',()=>openShare(t));
+}
+
+function openShare(t){
+  $('#share').textContent=
+`Tenancy update: ${t.addr}
+Tenant: ${t.name} (${t.months} months)
+Behaviour score: ${t.score} (${label(band(t.score))})
+Rent: ${t.rent}
+Inspections: ${t.insp}
+Maintenance reports: ${t.maint}
+References: ${t.ref}
+
+Verified by Oakfield Lettings via Tenura (demo).`;
+  $('#dlg').showModal();
+}
+$('#close').addEventListener('click',()=>$('#dlg').close());
+$('#copy').addEventListener('click',async()=>{
+  const btn=$('#copy');
+  try{await navigator.clipboard.writeText($('#share').textContent);btn.textContent='Copied';}
+  catch(e){btn.textContent='Select the text to copy';}
+  setTimeout(()=>btn.textContent='Copy text',1800);
+});
+$('#q').addEventListener('input',renderTenancies);
+$('#f').addEventListener('change',renderTenancies);
+
+/* New check flow */
+const STEPS=['Consent request sent','Applicant consented','Identity and right to rent verified','Rental history gathered','Result ready'];
+let running=false;
+$('#form').addEventListener('submit',e=>{
+  e.preventDefault(); if(running) return; running=true;
+  const name=$('#n').value.trim(), addr=$('#a').value.trim();
+  $('#go').disabled=true; $('#result').hidden=true;
+  const ol=$('#steps'); ol.hidden=false;
+  ol.innerHTML=STEPS.map(s=>`<li><span class="dot"></span><span>${s}</span></li>`).join('');
+  const lis=[...ol.children]; let i=0;
+  const tick=()=>{
+    if(i>0){lis[i-1].classList.remove('now');lis[i-1].classList.add('done');lis[i-1].querySelector('.dot').textContent='✓';}
+    if(i<lis.length){lis[i].classList.add('now');i++;setTimeout(tick,i===lis.length?650:800);}
+    else{finish(name,addr);}
+  };
+  tick();
+});
+function finish(name,addr){
+  const r=$('#result'); r.hidden=false;
+  r.innerHTML=`<div class="card" style="background:var(--surface2)">
+    <div class="phead" style="margin-bottom:10px"><div><h3 style="font-size:24px" id="rn"></h3><div class="addr" id="ra"></div></div><div>${pill(87)}</div></div>
+    <ul class="list" style="gap:6px;margin-bottom:14px">
+      <li>✓ Identity and right to rent verified</li><li>✓ Two previous landlords confirmed rent paid on time</li>
+      <li>✓ Employment confirmed</li><li>✓ No rent arrears recorded</li>
+    </ul>
+    <p class="where" style="color:var(--muted);font-size:13px;margin-bottom:14px">Sample result for demonstration only.</p>
+    <button class="btn primary" id="add" type="button">Add to tenancies</button></div>`;
+  $('#rn').textContent=name; $('#ra').textContent=addr;
+  $('#add').addEventListener('click',()=>{
+    const id=Date.now();
+    T.unshift({id,name,addr,landlord:'(to assign)',months:0,score:87,rent:'No history yet',insp:'Not yet due',maint:'0',ref:'Previous landlords confirmed',
+      ev:[['Today','Pre-tenancy check','Check completed with the applicant’s consent. Strong result.']]});
+    sel=id; running=false; $('#go').disabled=false; $('#form').reset(); $('#steps').hidden=true; r.hidden=true;
+    renderOverview(); showView('tenancies'); renderTenancies();
+  });
+}
+
+renderOverview(); renderTenancies();
+</script>
+</body>
+</html>
