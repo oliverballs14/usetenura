@@ -129,6 +129,22 @@ table.cmp .nm{font:400 22px 'DM Serif Display',serif}
 .note{font-size:13px;color:var(--muted);margin-top:12px}
 .ok{background:var(--green-bg);color:var(--green);border-radius:12px;padding:14px 16px;font-weight:500}
 .err{background:var(--red-bg);color:var(--red);border-radius:12px;padding:14px 16px}
+.login{min-height:calc(100vh - 40px);display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch}
+.login .hero{display:flex;flex-direction:column;justify-content:center;gap:20px;padding:48px clamp(24px,6vw,88px);border-right:1px solid var(--line)}
+.login .hero .brand{font-size:40px}
+.login .hero h1{font-size:clamp(34px,4.4vw,56px);line-height:1.05}
+.login .hero h1 em{color:var(--green);font-style:italic}
+.login .hero p{color:var(--soft);max-width:44ch}
+.login .panel{display:flex;align-items:center;justify-content:center;padding:32px 16px}
+.login .box{width:100%;max-width:400px}
+.login .box h2{font-size:30px}
+.login form{display:grid;gap:14px;margin-top:18px}
+.login label{display:grid;gap:6px;font-size:14px;color:var(--soft)}
+.login input[type=password]{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;width:100%}
+.login .links{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;font-size:14px}
+.linkbtn{background:none;border:0;color:var(--green);padding:0;text-decoration:underline;text-underline-offset:3px}
+.who-in{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:860px){.login{grid-template-columns:1fr}.login .hero{border-right:0;border-bottom:1px solid var(--line);padding:32px 20px}.login .hero .brand{font-size:32px}}
 .foot{color:var(--muted);font-size:13px;text-align:center;padding:24px 0 40px}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -136,10 +152,30 @@ table.cmp .nm{font:400 22px 'DM Serif Display',serif}
 </head>
 <body>
 <div class="banner"><div class="wrap"><b>Interactive demo</b> · every name and number below is fictional · Tenura is in pre-launch</div></div>
-<div class="wrap">
+<section class="login" id="login" aria-label="Sign in" hidden>
+  <div class="hero">
+    <div class="brand">Tenura<small style="font:500 12px 'DM Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--green);border:1px solid var(--line);border-radius:99px;padding:3px 10px;margin-left:10px;vertical-align:middle">for agents</small></div>
+    <h1>Your last tenant had perfect references. <em>So did the one before.</em></h1>
+    <p>See how tenants really behave, before you let and while they live there. Verified, consented and in one place.</p>
+  </div>
+  <div class="panel"><div class="box">
+    <h2>Sign in</h2>
+    <p class="sub" style="margin:4px 0 0">Demo only: any email and password will work. Nothing is sent or stored.</p>
+    <form id="lform">
+      <label>Work email<input type="email" id="le" required autocomplete="off" placeholder="you@youragency.co.uk"></label>
+      <label>Password<input type="password" id="lp" required autocomplete="off" placeholder="Any password"></label>
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+    <div class="links">
+      <button class="linkbtn" id="demo-go" type="button">Continue as demo agent</button>
+      <button class="linkbtn" id="lpilot" type="button">New here? Request a pilot</button>
+    </div>
+  </div></div>
+</section>
+<div class="wrap" id="app" hidden>
   <header class="top">
     <div class="brand">Tenura<small>for agents</small></div>
-    <div class="agency">Oakfield Lettings (demo agency)</div>
+    <div class="who-in"><span class="agency" id="agency">Oakfield Lettings (demo agency)</span><button class="btn" id="out" type="button" style="padding:6px 14px;font-size:14px">Sign out</button></div>
   </header>
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button role="tab" id="t-overview" aria-selected="true" data-view="overview">Overview</button>
@@ -437,7 +473,26 @@ $('#pform').addEventListener('submit',async e=>{
   btn.disabled=false;
 });
 
+/* Demo sign-in (no real authentication) */
+function enterApp(view,email){
+  $('#login').hidden=true; $('#app').hidden=false;
+  $('#agency').textContent=email?('Signed in as '+email):'Oakfield Lettings (demo agency)';
+  showView(view||'overview'); window.scrollTo(0,0);
+  try{sessionStorage.setItem('tdemo',email||'1');}catch(e){}
+}
+function signOut(){
+  $('#app').hidden=true; $('#login').hidden=false; $('#lform').reset();
+  try{sessionStorage.removeItem('tdemo');}catch(e){}
+  window.scrollTo(0,0);
+}
+$('#lform').addEventListener('submit',e=>{e.preventDefault();enterApp('overview',$('#le').value.trim());});
+$('#demo-go').addEventListener('click',()=>enterApp('overview'));
+$('#lpilot').addEventListener('click',()=>enterApp('pilot'));
+$('#out').addEventListener('click',signOut);
+
 renderOverview(); renderTenancies(); renderCompare();
+let had=null; try{had=sessionStorage.getItem('tdemo');}catch(e){}
+if(had){enterApp('overview',had==='1'?'':had);} else {$('#login').hidden=false;}
 </script>
 </body>
 </html>
