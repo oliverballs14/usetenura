@@ -113,10 +113,22 @@ form.new label{display:grid;gap:6px;font-size:14px;color:var(--soft)}
 .steps li.done{color:var(--ink)}
 .steps li.done .dot{background:var(--green);border-color:var(--green);color:#0d1a13}
 .steps li.now .dot{border-color:var(--green)}
-dialog{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:calc(100% - 32px)}
+dialog{margin:auto;max-height:calc(100vh - 32px);overflow:auto;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:24px;max-width:520px;width:calc(100% - 32px)}
 dialog::backdrop{background:rgba(0,0,0,.6)}
 dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:var(--surface2);border-radius:12px;padding:14px;margin:14px 0}
 .actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.tablewrap{overflow-x:auto}
+table.cmp{border-collapse:separate;border-spacing:0;width:100%;min-width:560px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp th{font-weight:500}
+table.cmp th.rowh{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em;width:170px}
+table.cmp td.best{background:var(--green-bg);font-weight:600}
+table.cmp .nm{font:400 22px 'DM Serif Display',serif}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;background:var(--green-bg);border-color:var(--line)}
+.cta h3{font-size:22px}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+.ok{background:var(--green-bg);color:var(--green);border-radius:12px;padding:14px 16px;font-weight:500}
+.err{background:var(--red-bg);color:var(--red);border-radius:12px;padding:14px 16px}
 .foot{color:var(--muted);font-size:13px;text-align:center;padding:24px 0 40px}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -133,6 +145,8 @@ dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:va
     <button role="tab" id="t-overview" aria-selected="true" data-view="overview">Overview</button>
     <button role="tab" id="t-tenancies" aria-selected="false" data-view="tenancies">Tenancies</button>
     <button role="tab" id="t-new" aria-selected="false" data-view="new">New check</button>
+    <button role="tab" id="t-compare" aria-selected="false" data-view="compare">Compare</button>
+    <button role="tab" id="t-pilot" aria-selected="false" data-view="pilot">Request a pilot</button>
   </nav>
 
   <main>
@@ -144,6 +158,7 @@ dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:va
         <div class="card"><h3 style="font-size:22px;margin-bottom:10px">Needs attention</h3><ul class="list" id="attention"></ul></div>
         <div class="card"><h3 style="font-size:22px;margin-bottom:6px">Recent activity</h3><ul class="list feed" id="feed"></ul></div>
       </div>
+      <div class="card cta"><div><h3>Want this for your agency?</h3><p class="sub" style="margin:4px 0 0">Tell us about your lettings and we'll set you up with a pilot.</p></div><button class="btn primary" id="cta-go" type="button">Request a pilot</button></div>
     </section>
 
     <section id="v-tenancies" aria-labelledby="t-tenancies" hidden>
@@ -175,15 +190,42 @@ dialog pre{white-space:pre-wrap;font:14px/1.6 'DM Sans',sans-serif;background:va
         <div id="result" hidden></div>
       </div>
     </section>
+
+    <section id="v-compare" aria-labelledby="t-compare" hidden>
+      <h2>Compare applicants</h2>
+      <p class="sub">Three applicants for 12 Beech Road, side by side. Green marks the strongest on each measure.</p>
+      <div class="card tablewrap"><table class="cmp" id="cmp"></table></div>
+      <p class="note" id="short"></p>
+      <p class="note">Tenura shows the evidence. The decision stays with you.</p>
+    </section>
+
+    <section id="v-pilot" aria-labelledby="t-pilot" hidden>
+      <h2>Request a pilot</h2>
+      <p class="sub">We're lining up a small number of agencies to try Tenura with a handful of landlords. Tell us a bit about yours.</p>
+      <div class="card">
+        <form class="new" id="pform">
+          <label>Your name<input type="text" id="pn" required autocomplete="name"></label>
+          <label>Agency<input type="text" id="pa" required autocomplete="organization"></label>
+          <label>Work email<input type="email" id="pe" required autocomplete="email"></label>
+          <label>Tenancies you manage
+            <select id="pt"><option>Under 50</option><option>50 to 200</option><option>200 to 500</option><option>500+</option></select></label>
+          <label>Lettings software
+            <select id="ps"><option>Not sure</option><option>Reapit</option><option>Alto</option><option>Street</option><option>Jupix</option><option>Rentman</option><option>Other</option></select></label>
+          <div><button class="btn primary" id="pgo" type="submit">Request a pilot</button></div>
+        </form>
+        <div id="pmsg" aria-live="polite" style="margin-top:14px" hidden></div>
+        <p class="note">We use your details only to contact you about the pilot. <a href="../privacy.html" style="color:var(--green)">Privacy</a></p>
+      </div>
+    </section>
   </main>
   <p class="foot">Demo built to gather feedback from letting agents. No real tenant data is used or stored.</p>
 </div>
 
 <dialog id="dlg" aria-labelledby="dlg-t">
   <h3 id="dlg-t" style="font-size:24px">Share with landlord</h3>
-  <p class="sub" style="margin:6px 0 0">This is what the landlord would receive.</p>
+  <p class="sub" style="margin:6px 0 0" id="dlg-s">This is what the landlord would receive.</p>
   <pre id="share"></pre>
-  <div class="actions"><button class="btn" id="copy" type="button">Copy text</button><button class="btn primary" id="close" type="button">Close</button></div>
+  <div class="actions"><button class="btn" id="copy" type="button">Copy text</button><button class="btn" id="dl" type="button" hidden>Download .txt</button><button class="btn primary" id="close" type="button">Close</button></div>
 </dialog>
 
 <script>
@@ -207,7 +249,7 @@ const pill=s=>`<span class="pill ${band(s)}">${s} · ${label(band(s))}</span>`;
 let sel=T[0].id;
 
 function showView(v){
-  for(const id of ['overview','tenancies','new']){
+  for(const id of ['overview','tenancies','new','compare','pilot']){
     $('#v-'+id).hidden=id!==v; $('#t-'+id).setAttribute('aria-selected',String(id===v));
   }
 }
@@ -254,10 +296,39 @@ function renderProfile(){
     </div>
     <h3 style="font-size:20px;margin-bottom:10px">Verified timeline</h3>
     <ul class="timeline">${t.ev.map(e=>`<li><div class="when">${e[0]}</div><div><span class="kind">${e[1]}.</span> ${e[2]}</div></li>`).join('')}</ul>
-    <button class="btn primary" id="share-btn" type="button">Share with landlord</button>`;
+    <div class="actions" style="justify-content:flex-start"><button class="btn primary" id="share-btn" type="button">Share with landlord</button><button class="btn" id="ev-btn" type="button">Build evidence pack</button></div>`;
   $('#share-btn').addEventListener('click',()=>openShare(t));
+  $('#ev-btn').addEventListener('click',()=>openDlg('Evidence pack','Dated records, ready to export. Not legal advice.',evidencePack(t),'evidence-'+t.name.replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.txt'));
 }
 
+let dlgName='tenura.txt';
+function openDlg(title,sub,text,dl){
+  $('#dlg-t').textContent=title; $('#dlg-s').textContent=sub; $('#share').textContent=text;
+  $('#dl').hidden=!dl; dlgName=dl||'tenura.txt'; $('#dlg').showModal();
+}
+function evidencePack(t){
+  const today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const lines=[...t.ev].reverse().map(e=>`- ${e[0]} | ${e[1]} | ${e[2]}`).join('\n');
+  return `EVIDENCE PACK (organised tenancy records)
+Property: ${t.addr}
+Tenant: ${t.name}
+Landlord: ${t.landlord}
+Tenancy length: ${t.months} months
+Prepared: ${today}
+Prepared by: Oakfield Lettings via Tenura (demo, fictional data)
+
+SUMMARY
+Rent: ${t.rent}
+Inspections: ${t.insp}
+Maintenance reports: ${t.maint}
+References: ${t.ref}
+
+DATED RECORD (oldest first)
+${lines}
+
+NOTE
+These are records held by the agent. They are not legal advice and do not replace the notices and process the law requires.`;
+}
 function openShare(t){
   $('#share').textContent=
 `Tenancy update: ${t.addr}
@@ -269,7 +340,8 @@ Maintenance reports: ${t.maint}
 References: ${t.ref}
 
 Verified by Oakfield Lettings via Tenura (demo).`;
-  $('#dlg').showModal();
+  $('#dlg-t').textContent='Share with landlord'; $('#dlg-s').textContent='This is what the landlord would receive.';
+  $('#dl').hidden=true; $('#dlg').showModal();
 }
 $('#close').addEventListener('click',()=>$('#dlg').close());
 $('#copy').addEventListener('click',async()=>{
@@ -277,6 +349,10 @@ $('#copy').addEventListener('click',async()=>{
   try{await navigator.clipboard.writeText($('#share').textContent);btn.textContent='Copied';}
   catch(e){btn.textContent='Select the text to copy';}
   setTimeout(()=>btn.textContent='Copy text',1800);
+});
+$('#dl').addEventListener('click',()=>{
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([$('#share').textContent],{type:'text/plain'}));a.download=dlgName;document.body.appendChild(a);a.click();a.remove();}
+  catch(e){$('#dl').textContent='Use Copy text instead';}
 });
 $('#q').addEventListener('input',renderTenancies);
 $('#f').addEventListener('change',renderTenancies);
@@ -318,7 +394,50 @@ function finish(name,addr){
   });
 }
 
-renderOverview(); renderTenancies();
+/* Compare */
+const APPS=[
+ {n:'Sophie Lang',score:91,paid:98,inc:29,emp:'Permanent, 4 years',ref:'Previous landlord confirmed',id:'Verified'},
+ {n:'Marcus Bell',score:76,paid:91,inc:41,emp:'Contract, 8 months',ref:'Previous landlord confirmed',id:'Verified'},
+ {n:'Tia Moreau',score:84,paid:100,inc:33,emp:'Self-employed, 2 years',ref:'Awaiting reply',id:'Verified'}
+];
+const picks=new Set();
+function renderCompare(){
+  const best=(k,hi)=>{const v=APPS.map(a=>a[k]);return hi?Math.max(...v):Math.min(...v);};
+  const rows=[
+   ['Behaviour score',a=>a.score,'score',true],
+   ['Rent paid on time',a=>a.paid+'%','paid',true],
+   ['Rent as share of income',a=>a.inc+'%','inc',false],
+   ['Employment',a=>a.emp],['Previous landlord',a=>a.ref],['Identity and right to rent',a=>a.id]];
+  let h='<thead><tr><th class="rowh"></th>'+APPS.map(a=>`<th><div class="nm">${a.n}</div>${pill(a.score)}</th>`).join('')+'</tr></thead><tbody>';
+  for(const r of rows){
+    h+=`<tr><th class="rowh" scope="row">${r[0]}</th>`+APPS.map(a=>{
+      const isBest=r[2]&&a[r[2]]===best(r[2],r[3]);
+      return `<td class="${isBest?'best':''}">${r[1](a)}${isBest?' <span aria-label="strongest">★</span>':''}</td>`;}).join('')+'</tr>';
+  }
+  h+='<tr><th class="rowh" scope="row">Shortlist</th>'+APPS.map((a,i)=>`<td><button class="btn${picks.has(i)?' primary':''}" data-pick="${i}" type="button" aria-pressed="${picks.has(i)}">${picks.has(i)?'Shortlisted ✓':'Shortlist'}</button></td>`).join('')+'</tr></tbody>';
+  $('#cmp').innerHTML=h;
+  $('#short').textContent=picks.size?'Shortlisted: '+[...picks].map(i=>APPS[i].n).join(', '):'';
+  document.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.pick;picks.has(i)?picks.delete(i):picks.add(i);renderCompare();}));
+}
+
+/* Pilot request */
+const PILOT_ENDPOINT='https://formspree.io/f/mnppawrj';
+$('#cta-go').addEventListener('click',()=>showView('pilot'));
+$('#pform').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const m=$('#pmsg'), btn=$('#pgo'); btn.disabled=true; m.hidden=true; m.className='';
+  const body={name:$('#pn').value.trim(),agency:$('#pa').value.trim(),email:$('#pe').value.trim(),tenancies:$('#pt').value,software:$('#ps').value,page:'agent-demo-pilot'};
+  try{
+    const r=await fetch(PILOT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok) throw new Error('bad');
+    m.className='ok'; m.textContent='Thanks '+body.name.split(' ')[0]+'. We\'ll be in touch about a pilot shortly.'; m.hidden=false; $('#pform').reset();
+  }catch(err){
+    m.className='err'; m.textContent='Something went wrong. Please email hello@usetenura.com and we\'ll set you up.'; m.hidden=false;
+  }
+  btn.disabled=false;
+});
+
+renderOverview(); renderTenancies(); renderCompare();
 </script>
 </body>
 </html>
