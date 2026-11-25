@@ -1,0 +1,19 @@
+{
+  "name": "tenura-desktop",
+  "productName": "Tenura",
+  "version": "1.0.0",
+  "description": "Tenura agent demo as a desktop app",
+  "main": "main.js",
+  "author": "Tenura",
+  "license": "UNLICENSED",
+  "scripts": { "start": "electron .", "dist": "electron-builder" },
+  "devDependencies": { "electron": "^33.2.0", "electron-builder": "^25.1.8" },
+  "build": {
+    "appId": "com.usetenura.desktop",
+    "productName": "Tenura",
+    "files": ["main.js", "icon.png"],
+    "mac": { "category": "public.app-category.business", "target": ["dmg"], "icon": "icon.png", "identity": null },
+    "win": { "target": ["portable"], "icon": "icon.png" },
+    "directories": { "output": "dist" }
+  }
+}
